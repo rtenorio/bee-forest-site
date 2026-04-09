@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bee Forest — Do apiário ao luxo</title>
+  <meta name="description" content="Gestão inteligente de meliponários e cosméticos formulados com mel de uruçu e própolis vermelho do Nordeste." />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Bee Forest — Do apiário ao luxo" />
+  <meta property="og:description" content="Gestão de meliponários e cosméticos com mel de uruçu e própolis vermelho do Nordeste." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+  <meta property="og:type"        content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/images/logo_apenas_abelha.png" type="image/png" />
+
+  <!-- Fonts + Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div class="page-loader">
+    <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest" onerror="this.style.display='none'">
+  </div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────── -->
+  <nav class="nav nav--hero" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="index.html"  class="nav__link">Home</a></li>
+        <li><a href="app.html"    class="nav__link">App</a></li>
+        <li><a href="luxe.html"   class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"   class="nav__link">Loja</a></li>
+        <li><a href="sobre.html"  class="nav__link">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link">Contato</a></li>
+      </ul>
+
+      <div class="nav__cta">
+        <a href="loja.html" class="btn btn-gold btn-sm">Ver Loja</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav__drawer" id="nav-drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close" aria-label="Fechar menu">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HERO ────────────────────────────────────────────────── -->
+  <section class="hero home-hero">
+    <div class="hero__bg home-hero"></div>
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content home-hero__content">
+      <p class="eyebrow home-hero__eyebrow">Meliponicultura & Cosméticos Naturais</p>
+      <h1 class="home-hero__title">
+        Tecnologia e natureza.<br>
+        <em>Do apiário ao luxo.</em>
+      </h1>
+      <p class="home-hero__subtitle">
+        Gestão inteligente de meliponários e cosméticos formulados com mel de uruçu e própolis vermelho do Nordeste.
+      </p>
+      <div class="home-hero__ctas">
+        <a href="app.html"  class="btn btn-gold">Conhecer o App</a>
+        <a href="loja.html" class="btn btn-outline-light">Ver a Loja</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Explorar</span>
+      <div class="scroll-hint__arrow"></div>
+    </div>
+  </section>
+
+  <!-- ── STATS BAR ───────────────────────────────────────────── -->
+  <div class="stats-bar">
+    <div class="stats-bar__inner">
+      <div class="stats-bar__item" data-reveal>
+        <span class="stats-bar__value">302+</span>
+        <span class="stats-bar__label">Colmeias monitoradas</span>
+      </div>
+      <div class="stats-bar__item" data-reveal data-reveal-delay="1">
+        <span class="stats-bar__value">4</span>
+        <span class="stats-bar__label">Apiários ativos</span>
+      </div>
+      <div class="stats-bar__item" data-reveal data-reveal-delay="2">
+        <span class="stats-bar__value">100%</span>
+        <span class="stats-bar__label">Natural & sustentável</span>
+      </div>
+      <div class="stats-bar__item" data-reveal data-reveal-delay="3">
+        <span class="stats-bar__value">NE</span>
+        <span class="stats-bar__label">Origem nordestina</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DUAL FEATURE CARDS ──────────────────────────────────── -->
+  <section class="feature-cards" aria-label="App e Luxe">
+    <a href="app.html" class="feature-card feature-card--app">
+      <div class="feature-card__bg"></div>
+      <div class="feature-card__overlay"></div>
+      <div class="feature-card__body" data-reveal>
+        <span class="feature-card__icon">📱</span>
+        <span class="feature-card__label">Bee Forest App</span>
+        <h2 class="feature-card__title">Gestão inteligente de meliponários</h2>
+        <p class="feature-card__desc">
+          Do QR code à inspeção, tudo sincronizado mesmo offline. Rastreabilidade completa do mel até o consumidor.
+        </p>
+        <span class="feature-card__cta">Conhecer o App →</span>
+      </div>
+    </a>
+
+    <a href="luxe.html" class="feature-card feature-card--luxe">
+      <div class="feature-card__bg"></div>
+      <div class="feature-card__overlay"></div>
+      <div class="feature-card__body" data-reveal data-reveal-delay="1">
+        <span class="feature-card__icon">✨</span>
+        <span class="feature-card__label">Bee Forest Luxe</span>
+        <h2 class="feature-card__title">Natureza refinada. Ciência aplicada.</h2>
+        <p class="feature-card__desc">
+          Cosméticos formulados com mel de uruçu e própolis vermelho. Luxo com origem certificada.
+        </p>
+        <span class="feature-card__cta">Ver coleção →</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ── ORIGIN STORY ─────────────────────────────────────────── -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="grid-2" style="gap: 4rem;">
+        <div class="origin__img-wrap" data-reveal>
+          <img
+            src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_41.jpeg"
+            alt="Interior da colmeia com potes de mel"
+            loading="lazy"
+          />
+          <span class="origin__img-label">Apiários · Nordeste</span>
+        </div>
+        <div class="origin__body" data-reveal data-reveal-delay="1">
+          <p class="eyebrow">Nossa origem</p>
+          <span class="divider"></span>
+          <h2>Da colmeia ao produto final</h2>
+          <p class="text-mid mt-3">
+            A Bee Forest nasceu nos meliponários de Alagoas e Pernambuco — onde cada colmeia é monitorada com tecnologia desenvolvida para quem vive a apicultura de verdade.
+          </p>
+          <p class="text-mid mt-2">
+            Do campo ao laboratório, tudo começa aqui. Cada gota de mel tem origem rastreada, cada cosmético tem formulação com ingredientes certificados.
+          </p>
+          <a href="sobre.html" class="btn btn-dark mt-4">Nossa história</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS PREVIEW ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header section-header--center" data-reveal>
+        <p class="eyebrow">Bee Forest Luxe</p>
+        <span class="divider divider--center"></span>
+        <h2>Produtos em destaque</h2>
+        <p class="text-mid mt-2" style="max-width:500px;margin-left:auto;margin-right:auto">
+          Formulados com ingredientes dos nossos apiários. Qualidade rastreada do campo ao frasco.
+        </p>
+      </div>
+
+      <div class="grid-3 products-preview" id="home-products">
+        <!-- rendered by JS -->
+      </div>
+
+      <div class="text-center mt-6" data-reveal>
+        <a href="loja.html" class="btn btn-outline">Ver todos os produtos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── APP STRIP ─────────────────────────────────────────────── -->
+  <section class="app-strip" data-reveal>
+    <div class="app-strip__content container">
+      <p class="eyebrow" style="color:var(--gold)">Bee Forest App</p>
+      <h2 style="color:var(--cream);margin: 1rem 0 1.25rem; font-size:clamp(1.75rem, 3.5vw, 3rem)">
+        Tecnologia para quem cuida das abelhas
+      </h2>
+      <p style="color:rgba(245,240,232,0.75); max-width:520px;margin:0 auto 2rem; font-size:1rem; line-height:1.75">
+        Inspeções, alimentações, colheitas e rastreabilidade — tudo em um só lugar. Funciona offline, sincroniza quando há conexão.
+      </p>
+      <a href="app.html" class="btn btn-gold">Conhecer o App</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do apiário ao luxo.</p>
+          <p class="footer__desc">
+            Bee Forest une meliponicultura de precisão e cosméticos naturais, com origem 100% nordestina.
+          </p>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Produtos</p>
+          <ul class="footer__links">
+            <li><a href="app.html">Bee Forest App</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="loja.html">Loja Online</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer__col-title">App</p>
+          <ul class="footer__links">
+            <li><a href="https://app.beeforest.com.br" target="_blank" rel="noopener">Acessar plataforma</a></li>
+            <li><a href="contato.html">Solicitar demo</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="WhatsApp">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Render featured products preview
+    (async function() {
+      try {
+        const res = await fetch('data/products.json');
+        const products = await res.json();
+        const featured = products.filter(p => p.destaque).slice(0, 3);
+        const container = document.getElementById('home-products');
+        if (!container) return;
+
+        container.innerHTML = featured.map(p => {
+          const imgHTML = p.imagem
+            ? `<img class="card__img" src="${p.imagem}" alt="${p.nome}" loading="lazy">`
+            : `<div class="card__img" style="background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:3rem">🍯</div>`;
+          return `
+            <a href="loja.html" class="card" style="text-decoration:none">
+              ${imgHTML}
+              <div class="card__body">
+                <p class="eyebrow card__eyebrow">${p.categoria}</p>
+                <h3 class="card__title">${p.nome}</h3>
+                <p class="card__text">${p.subtitulo}</p>
+                <span class="product-price">R$ ${p.preco.toFixed(2).replace('.', ',')}</span>
+              </div>
+            </a>
+          `;
+        }).join('');
+      } catch(e) { console.warn('Could not load products', e); }
+    })();
+  </script>
+</body>
+</html>

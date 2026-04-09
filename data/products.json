@@ -1,0 +1,46 @@
+[
+  {
+    "id": "golden-drops",
+    "nome": "Golden Drops Sérum",
+    "categoria": "cosmético",
+    "subtitulo": "Sérum antioxidante · 30ml",
+    "descricao": "Formulado com própolis vermelho, mel de uruçu e CoQ10. Hidratação profunda e ação antioxidante. Único no mercado.",
+    "ingredientes": ["Mel de Uruçu", "Própolis Vermelho", "CoQ10", "Ácido Hialurônico", "Óleo de Maracujá"],
+    "preco": 189.00,
+    "imagem": "assets/images/serum.jpg",
+    "destaque": true
+  },
+  {
+    "id": "mel-urucu-100g",
+    "nome": "Mel de Uruçu",
+    "categoria": "mel",
+    "subtitulo": "Mel puro · 100g",
+    "descricao": "Colhido nos apiários de Alagoas e Pernambuco. Sem aditivos, sem conservantes. Só natureza.",
+    "ingredientes": ["Mel de Melipona scutellaris"],
+    "preco": 79.00,
+    "imagem": "assets/images/potes_de_mel.png",
+    "destaque": true
+  },
+  {
+    "id": "glow-defense",
+    "nome": "Glow Defense FPS 50",
+    "categoria": "cosmético",
+    "subtitulo": "Protetor solar · 40g",
+    "descricao": "Proteção FPS 50 com mel de uruçu e ação hidratante. Acabamento luminoso, sem resíduo branco.",
+    "ingredientes": ["Mel de Uruçu", "Filtros UVA/UVB"],
+    "preco": 149.00,
+    "imagem": null,
+    "destaque": true
+  },
+  {
+    "id": "nectar-balm",
+    "nome": "Nectar Balm",
+    "categoria": "cosmético",
+    "subtitulo": "Finalizador capilar · 60ml",
+    "descricao": "Anti-frizz com mel e própolis. Brilho, nutrição e definição sem silicone.",
+    "ingredientes": ["Mel de Uruçu", "Própolis", "Manteiga de Karité"],
+    "preco": 129.00,
+    "imagem": null,
+    "destaque": false
+  }
+]

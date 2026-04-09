@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bee Forest Luxe — Cosméticos Naturais</title>
+  <meta name="description" content="Cosméticos formulados com mel de uruçu e própolis vermelho do Nordeste. Natureza refinada, ciência aplicada." />
+
+  <meta property="og:title"       content="Bee Forest Luxe — Cosméticos Naturais" />
+  <meta property="og:description" content="Formulados com própolis vermelho, mel de uruçu e ingredientes certificados dos apiários do Nordeste." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon"        href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/luxe.css" />
+</head>
+<body>
+
+  <!-- ── NAV (dark) ───────────────────────────────────────────── -->
+  <nav class="nav nav--dark-solid" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+
+      <ul class="nav__links" style="--link-color: var(--cream)">
+        <li><a href="index.html"  class="nav__link" style="color:var(--cream)">Home</a></li>
+        <li><a href="app.html"    class="nav__link" style="color:var(--cream)">App</a></li>
+        <li><a href="luxe.html"   class="nav__link nav__link--active" style="color:var(--gold)">Luxe</a></li>
+        <li><a href="loja.html"   class="nav__link" style="color:var(--cream)">Loja</a></li>
+        <li><a href="sobre.html"  class="nav__link" style="color:var(--cream)">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link" style="color:var(--cream)">Contato</a></li>
+      </ul>
+
+      <div class="nav__cta">
+        <a href="loja.html" class="btn btn-gold btn-sm">Comprar</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Abrir menu"
+              style="--span-color: var(--cream)">
+        <span style="background:var(--cream)"></span>
+        <span style="background:var(--cream)"></span>
+        <span style="background:var(--cream)"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close" aria-label="Fechar menu">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="luxe-hero">
+    <div class="luxe-hero__bg">
+      <img src="assets/images/ChatGPT_Image_2_de_ago__de_2025__20_28_53.png"
+           alt="Bee Forest Luxe — BEEKISS" />
+      <div class="luxe-hero__bg-fade"></div>
+    </div>
+
+    <div class="luxe-hero__content">
+      <div class="luxe-hero__text" data-reveal>
+        <p class="eyebrow luxe-hero__eyebrow">Bee Forest Luxe</p>
+        <h1 class="luxe-hero__title">
+          Natureza refinada.<br>
+          <em>Ciência aplicada.</em>
+        </h1>
+        <p class="luxe-hero__subtitle">
+          Cosméticos formulados com mel de uruçu e própolis vermelho do Nordeste. Cada produto tem origem rastreada — do apiário ao seu rosto.
+        </p>
+        <div class="luxe-hero__ctas">
+          <a href="loja.html" class="btn btn-gold">Ver coleção</a>
+          <a href="#ingredientes" class="btn btn-outline-light">Nossos ingredientes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="luxe-hero__badge" data-reveal>
+      <strong>100%</strong>
+      <span>Natural & Rastreado</span>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTS ──────────────────────────────────────────────── -->
+  <section class="section luxe-products" id="colecao">
+    <div class="container">
+      <div class="section-header section-header--center" data-reveal>
+        <p class="eyebrow">Coleção Luxe</p>
+        <span class="divider divider--center"></span>
+        <h2>Formulados para transformar</h2>
+        <p class="text-mid mt-2" style="max-width:500px;margin-left:auto;margin-right:auto;font-size:0.95rem">
+          Do sérum antioxidante ao protetor solar — cada produto une a riqueza dos apiários com biotecnologia aplicada.
+        </p>
+      </div>
+
+      <!-- Products grid — loaded by JS -->
+      <div class="grid-2" id="luxe-product-grid" style="gap:2rem;grid-template-columns:repeat(2,1fr)">
+        <!-- Rendered below by inline script -->
+      </div>
+
+      <div class="text-center mt-6" data-reveal>
+        <a href="loja.html" class="btn btn-dark">Ver loja completa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHILOSOPHY ────────────────────────────────────────────── -->
+  <section class="luxe-philosophy">
+    <div class="luxe-philosophy__content" data-reveal>
+      <p class="eyebrow" style="color:var(--gold);margin-bottom:1.5rem">Nossa filosofia</p>
+      <blockquote class="luxe-philosophy__quote">
+        "A abelha nativa produz um mel único — mais denso, mais antioxidante, mais nobre. Era natural que ele se tornasse o centro de uma linha de cosméticos à altura."
+      </blockquote>
+      <span class="divider divider--center" style="background:var(--gold)"></span>
+      <a href="sobre.html" class="btn btn-outline-light mt-4">Conhecer a Bee Forest</a>
+    </div>
+  </section>
+
+  <!-- ── INGREDIENTES ───────────────────────────────────────────── -->
+  <section class="section ingredients-section" id="ingredientes">
+    <div class="container">
+      <div class="grid-2" style="gap:5rem;align-items:start">
+
+        <div data-reveal>
+          <p class="eyebrow">Ingredientes-chave</p>
+          <span class="divider"></span>
+          <h2 style="color:var(--cream)">Natureza certificada</h2>
+          <p style="color:rgba(245,240,232,0.6);margin-top:1rem;line-height:1.8;font-size:0.95rem">
+            Selecionamos apenas ingredientes com origem comprovada. Mel e própolis coletados nos nossos próprios apiários, combinados com ativos biotecnológicos de alta eficácia.
+          </p>
+
+          <div class="mt-4">
+            <div class="ingredient-item">
+              <span class="ingredient-item__num">01</span>
+              <div>
+                <p class="ingredient-item__name">Mel de Uruçu</p>
+                <p class="ingredient-item__desc">
+                  Produzido pela Melipona scutellaris nos apiários de Alagoas e Pernambuco. Rico em antioxidantes, enzimas e aminoácidos. Alta atividade antibacteriana natural.
+                </p>
+              </div>
+            </div>
+            <div class="ingredient-item">
+              <span class="ingredient-item__num">02</span>
+              <div>
+                <p class="ingredient-item__name">Própolis Vermelho</p>
+                <p class="ingredient-item__desc">
+                  Exclusivo do Nordeste brasileiro, formulado com resina de Dalbergia ecastaphyllum. Alto teor de isoflavonoides — potente ação antioxidante e anti-inflamatória.
+                </p>
+              </div>
+            </div>
+            <div class="ingredient-item">
+              <span class="ingredient-item__num">03</span>
+              <div>
+                <p class="ingredient-item__name">CoQ10 (Coenzima Q10)</p>
+                <p class="ingredient-item__desc">
+                  Antioxidante celular que combate o envelhecimento precoce. Potencializa a ação do mel e do própolis na regeneração da pele.
+                </p>
+              </div>
+            </div>
+            <div class="ingredient-item">
+              <span class="ingredient-item__num">04</span>
+              <div>
+                <p class="ingredient-item__name">Ácido Hialurônico</p>
+                <p class="ingredient-item__desc">
+                  Hidratação profunda e volumização. Em sinergia com o mel, maximiza a retenção de umidade e melhora a textura da pele.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal data-reveal-delay="1">
+          <div style="border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/5">
+            <img src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_04.jpeg"
+                 alt="Própolis vermelho nos apiários"
+                 style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Natureza refinada.<br>Ciência aplicada.</p>
+          <p class="footer__desc">Cosméticos com origem rastreada dos apiários do Nordeste.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Luxe</p>
+          <ul class="footer__links">
+            <li><a href="#colecao">Coleção</a></li>
+            <li><a href="#ingredientes">Ingredientes</a></li>
+            <li><a href="loja.html">Comprar</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="app.html">Bee Forest App</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Loja</p>
+          <ul class="footer__links">
+            <li><a href="loja.html">Todos os produtos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest Luxe. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+  <script>
+    // Render luxe products
+    (async function() {
+      try {
+        const res = await fetch('data/products.json');
+        const products = await res.json();
+        const grid = document.getElementById('luxe-product-grid');
+        if (!grid) return;
+
+        grid.innerHTML = products.map((p, i) => {
+          const isFeatured = p.id === 'golden-drops';
+          const imgHTML = p.imagem
+            ? `<img src="${p.imagem}" alt="${p.nome}" loading="lazy">`
+            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--cream)">✨</div>`;
+
+          const ingredientsHTML = p.ingredientes.map(i => `<span class="ingredient-tag">${i}</span>`).join('');
+
+          if (isFeatured) {
+            return `
+              <div class="luxe-product-card luxe-product-card--featured" data-reveal>
+                <div class="luxe-product-card__img-wrap">${imgHTML}</div>
+                <div class="luxe-product-card__body">
+                  <div>
+                    <p class="luxe-product-card__category">${p.categoria}</p>
+                    <h3 class="luxe-product-card__name">${p.nome}</h3>
+                    <p class="luxe-product-card__sub">${p.subtitulo}</p>
+                    <p class="luxe-product-card__desc">${p.descricao}</p>
+                    <div class="luxe-product-card__ingredients">${ingredientsHTML}</div>
+                  </div>
+                  <div class="luxe-product-card__footer">
+                    <span class="luxe-product-card__price">R$ ${p.preco.toFixed(2).replace('.', ',')}</span>
+                    <a href="loja.html" class="btn btn-gold btn-sm">Comprar</a>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="luxe-product-card" data-reveal data-reveal-delay="${(i % 2) + 1}">
+              <div class="luxe-product-card__img-wrap" style="aspect-ratio:4/3">${imgHTML}</div>
+              <div class="luxe-product-card__body">
+                <div>
+                  <p class="luxe-product-card__category">${p.categoria}</p>
+                  <h3 class="luxe-product-card__name">${p.nome}</h3>
+                  <p class="luxe-product-card__sub">${p.subtitulo}</p>
+                  <p class="luxe-product-card__desc">${p.descricao}</p>
+                  <div class="luxe-product-card__ingredients">${ingredientsHTML}</div>
+                </div>
+                <div class="luxe-product-card__footer">
+                  <span class="luxe-product-card__price">R$ ${p.preco.toFixed(2).replace('.', ',')}</span>
+                  <a href="loja.html" class="btn btn-gold btn-sm">Comprar</a>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch(e) { console.warn('Could not load products', e); }
+    })();
+  </script>
+</body>
+</html>

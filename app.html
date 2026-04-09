@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bee Forest App — Gestão de Meliponários</title>
+  <meta name="description" content="Plataforma de gestão inteligente para meliponários. Inspeções, QR code, rastreabilidade e muito mais — funciona offline." />
+
+  <meta property="og:title"       content="Bee Forest App — Gestão de Meliponários" />
+  <meta property="og:description" content="Do QR code à inspeção, tudo sincronizado mesmo offline. Rastreabilidade completa do mel." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon"        href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* App page specific styles */
+    .app-hero {
+      background: var(--black);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: var(--nav-h) 0 0;
+    }
+
+    .app-hero__bg {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 50%;
+      overflow: hidden;
+    }
+    .app-hero__bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+    .app-hero__bg-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--black) 30%, transparent 100%);
+    }
+
+    .app-hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    .app-hero__text { max-width: 560px; }
+
+    .app-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+      margin: 1.5rem 0;
+    }
+    .app-hero__title em { font-style: italic; color: var(--gold-light); }
+
+    .app-hero__subtitle {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 420px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+      margin-bottom: 2.5rem;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.75);
+    }
+    .feature-list__check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .app-modules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .app-module {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      text-align: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .app-module:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .app-module__icon { font-size: 2rem; margin-bottom: 1rem; }
+    .app-module__title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .app-module__desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.65; }
+
+    @media (max-width: 900px) {
+      .app-hero__bg { width: 100%; opacity: 0.15; }
+      .app-hero__bg-fade { background: var(--black); opacity: 0.7; }
+      .app-modules { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .app-modules { grid-template-columns: 1fr; }
+    }
+
+    .prova-strip {
+      background: url('assets/images/PHOTO-2025-04-29-19-34-37.jpg') center/cover no-repeat;
+      position: relative;
+      padding: 80px 0;
+      color: var(--cream);
+      text-align: center;
+    }
+    .prova-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.72);
+    }
+    .prova-strip__content { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav nav--dark-solid" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"   class="nav__link" style="color:var(--cream)">Home</a></li>
+        <li><a href="app.html"     class="nav__link nav__link--active" style="color:var(--gold)">App</a></li>
+        <li><a href="luxe.html"    class="nav__link" style="color:var(--cream)">Luxe</a></li>
+        <li><a href="loja.html"    class="nav__link" style="color:var(--cream)">Loja</a></li>
+        <li><a href="sobre.html"   class="nav__link" style="color:var(--cream)">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link" style="color:var(--cream)">Contato</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="https://app.beeforest.com.br" target="_blank" rel="noopener" class="btn btn-gold btn-sm">Acessar App</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span style="background:var(--cream)"></span>
+        <span style="background:var(--cream)"></span>
+        <span style="background:var(--cream)"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="app-hero">
+    <div class="app-hero__bg">
+      <img src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_03.jpeg" alt="Interior de colmeia" />
+      <div class="app-hero__bg-fade"></div>
+    </div>
+
+    <div class="app-hero__content">
+      <div class="app-hero__text" data-reveal>
+        <p class="eyebrow" style="color:var(--gold)">Bee Forest App</p>
+        <h1 class="app-hero__title">
+          Gestão inteligente<br>
+          <em>de meliponários</em>
+        </h1>
+        <p class="app-hero__subtitle">
+          Do QR code à inspeção, tudo sincronizado mesmo offline. Rastreabilidade completa do mel até o consumidor.
+        </p>
+
+        <ul class="feature-list">
+          <li>
+            <span class="feature-list__check">✓</span>
+            Inspeções com checklist, fotos e histórico completo
+          </li>
+          <li>
+            <span class="feature-list__check">✓</span>
+            Etiquetas QR code para cada colmeia — identificação instantânea
+          </li>
+          <li>
+            <span class="feature-list__check">✓</span>
+            Rastreabilidade do mel: do apiário ao consumidor final
+          </li>
+          <li>
+            <span class="feature-list__check">✓</span>
+            Dashboard financeiro: produções, colheitas e custos
+          </li>
+          <li>
+            <span class="feature-list__check">✓</span>
+            Funciona offline — sincroniza quando há conexão
+          </li>
+          <li>
+            <span class="feature-list__check">✓</span>
+            Multi-perfis: sócio, responsável, tratador
+          </li>
+        </ul>
+
+        <div class="flex gap-2 flex-wrap">
+          <a href="https://app.beeforest.com.br" target="_blank" rel="noopener" class="btn btn-gold">
+            Acessar plataforma
+          </a>
+          <a href="contato.html" class="btn btn-outline-light">Solicitar demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MODULES ───────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header section-header--center" data-reveal>
+        <p class="eyebrow">Funcionalidades</p>
+        <span class="divider divider--center"></span>
+        <h2>Tudo que você precisa para gerir colmeias</h2>
+      </div>
+
+      <div class="app-modules">
+        <div class="app-module" data-reveal>
+          <div class="app-module__icon">🔍</div>
+          <h3 class="app-module__title">Inspeções</h3>
+          <p class="app-module__desc">Checklist completo com fotos, notas e histórico por colmeia. Formulário offline, sync automático.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="1">
+          <div class="app-module__icon">🏷️</div>
+          <h3 class="app-module__title">QR Code</h3>
+          <p class="app-module__desc">Geração e impressão de etiquetas QR para cada colmeia. Escaneie e acesse o histórico na hora.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="2">
+          <div class="app-module__icon">🍯</div>
+          <h3 class="app-module__title">Colheitas</h3>
+          <p class="app-module__desc">Registro de volume, umidade, brix por colmeia. Histórico completo de produções e lotes.</p>
+        </div>
+        <div class="app-module" data-reveal>
+          <div class="app-module__icon">🫙</div>
+          <h3 class="app-module__title">Lotes & Rastreabilidade</h3>
+          <p class="app-module__desc">Criação de lotes com etapas de processamento. Página pública de rastreabilidade via QR.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="1">
+          <div class="app-module__icon">📦</div>
+          <h3 class="app-module__title">Estoque</h3>
+          <p class="app-module__desc">Controle de melgueiras, equipamentos e insumos. Alertas de nível crítico automáticos.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="2">
+          <div class="app-module__icon">💰</div>
+          <h3 class="app-module__title">Financeiro</h3>
+          <p class="app-module__desc">Dashboard de produções, custos e parceiros. Relatórios de SLA e auditoria para gestores.</p>
+        </div>
+        <div class="app-module" data-reveal>
+          <div class="app-module__icon">✂️</div>
+          <h3 class="app-module__title">Divisões</h3>
+          <p class="app-module__desc">Registro de divisões de colmeias com rastreamento da colmeia-mãe. Histórico genealógico.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="1">
+          <div class="app-module__icon">🌺</div>
+          <h3 class="app-module__title">Alimentações</h3>
+          <p class="app-module__desc">Controle de alimentações artificiais e naturais. Alertas de alimentação pendente.</p>
+        </div>
+        <div class="app-module" data-reveal data-reveal-delay="2">
+          <div class="app-module__icon">👥</div>
+          <h3 class="app-module__title">Multi-usuário</h3>
+          <p class="app-module__desc">Perfis de sócio, responsável e tratador. Permissões granulares por apiário.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROVA DE CAMPO ─────────────────────────────────────────── -->
+  <section class="prova-strip" data-reveal>
+    <div class="prova-strip__content container">
+      <p class="eyebrow" style="color:var(--gold)">Prova de campo</p>
+      <h2 style="font-size:clamp(1.75rem, 3.5vw, 3rem);margin:1rem 0 1.25rem;color:var(--cream)">
+        Desenvolvido por quem vive a meliponicultura
+      </h2>
+      <p style="color:rgba(245,240,232,0.7);max-width:520px;margin:0 auto 2rem;line-height:1.75">
+        O Bee Forest App nasceu do trabalho real nos apiários de Alagoas e Pernambuco. Cada funcionalidade resolve um problema concreto do dia a dia do apicultor.
+      </p>
+      <div class="flex gap-2 justify-content-center" style="justify-content:center;flex-wrap:wrap">
+        <a href="https://app.beeforest.com.br" target="_blank" rel="noopener" class="btn btn-gold">
+          Acessar o App
+        </a>
+        <a href="contato.html" class="btn btn-outline-light">Falar com a equipe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia para meliponicultura.</p>
+          <p class="footer__desc">Gestão completa de meliponários com QR code, inspeções e rastreabilidade.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">App</p>
+          <ul class="footer__links">
+            <li><a href="#funcionalidades">Funcionalidades</a></li>
+            <li><a href="https://app.beeforest.com.br" target="_blank">Acessar</a></li>
+            <li><a href="contato.html">Solicitar demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="loja.html">Loja</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Contato</p>
+          <ul class="footer__links">
+            <li><a href="contato.html">Fale conosco</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>

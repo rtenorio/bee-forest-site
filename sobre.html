@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre — Bee Forest</title>
+  <meta name="description" content="A história da Bee Forest: meliponicultura de precisão nos apiários de Alagoas e Pernambuco." />
+
+  <meta property="og:title"       content="Sobre a Bee Forest" />
+  <meta property="og:description" content="A história da Bee Forest: meliponicultura de precisão nos apiários do Nordeste." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon"        href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .sobre-hero {
+      background-image: url('assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      min-height: 60vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 5rem;
+      position: relative;
+    }
+    .sobre-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+    }
+    .sobre-hero__content {
+      position: relative;
+      z-index: 1;
+      padding-top: var(--nav-h);
+    }
+
+    .manifesto {
+      background: var(--black);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .manifesto__text {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+    .manifesto__text em { color: var(--gold-light); }
+
+    .timeline {
+      position: relative;
+      padding-left: 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--gold);
+      opacity: 0.3;
+    }
+    .timeline__item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+    .timeline__item:last-child { padding-bottom: 0; }
+    .timeline__dot {
+      position: absolute;
+      left: -3rem;
+      top: 4px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+    }
+    .timeline__year {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .timeline__title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .timeline__desc {
+      font-size: 0.875rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .value-card {
+      padding: 2rem;
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+    }
+    .value-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+    .value-card__title { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.75rem; }
+    .value-card__desc  { font-size: 0.875rem; color: var(--text-mid); line-height: 1.7; }
+
+    @media (max-width: 900px) { .values-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .values-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav nav--hero" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"   class="nav__link">Home</a></li>
+        <li><a href="app.html"     class="nav__link">App</a></li>
+        <li><a href="luxe.html"    class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"    class="nav__link">Loja</a></li>
+        <li><a href="sobre.html"   class="nav__link nav__link--active">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link">Contato</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="loja.html" class="btn btn-gold btn-sm">Ver Loja</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="sobre-hero">
+    <div class="sobre-hero__content container" data-reveal>
+      <p class="eyebrow" style="color:var(--gold)">Nossa história</p>
+      <h1 style="color:var(--cream);margin-top:0.75rem">
+        Do Nordeste<br>ao mundo
+      </h1>
+    </div>
+  </section>
+
+  <!-- ── MANIFESTO ─────────────────────────────────────────────── -->
+  <section class="manifesto">
+    <div class="container" data-reveal>
+      <p class="manifesto__text">
+        "A abelha nativa é guardiã de um ecossistema inteiro. A Bee Forest nasceu da crença de que <em>tecnologia e natureza não são opostos</em> — são parceiros. Cada colmeia monitorada, cada produto formulado, cada gota de mel colhida carrega essa convicção."
+      </p>
+    </div>
+  </section>
+
+  <!-- ── ORIGIN STORY ──────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem">
+        <div data-reveal>
+          <p class="eyebrow">Origem</p>
+          <span class="divider"></span>
+          <h2>Nascemos nos apiários</h2>
+          <p class="text-mid mt-3">
+            A Bee Forest nasceu nos meliponários de Alagoas e Pernambuco — onde cada colmeia é monitorada com tecnologia desenvolvida para quem vive a apicultura de verdade.
+          </p>
+          <p class="text-mid mt-2">
+            Do campo ao laboratório, tudo começa aqui. A Melipona scutellaris — a uruçu — produz um mel único, mais denso, mais antioxidante, que forma a base de toda a nossa linha de cosméticos.
+          </p>
+          <p class="text-mid mt-2">
+            Em paralelo, desenvolvemos a plataforma Bee Forest App para resolver os desafios reais da gestão de meliponários em escala: inspeções, rastreabilidade, lotes de mel e muito mais.
+          </p>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <div style="border-radius:var(--radius-lg);overflow:hidden">
+            <img src="assets/images/IMG_6103.jpg"
+                 alt="Extração de mel nos apiários Bee Forest"
+                 style="width:100%;height:420px;object-fit:cover" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAMPO ─────────────────────────────────────────────────── -->
+  <div class="split section--cream">
+    <div class="split__img">
+      <img src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_41.jpeg"
+           alt="Interior da colmeia com mel" loading="lazy">
+    </div>
+    <div class="split__body" data-reveal>
+      <p class="eyebrow">Do campo ao frasco</p>
+      <span class="divider"></span>
+      <h2>Cada gota tem história</h2>
+      <p class="text-mid mt-3">
+        Cada pote de mel e cada cosmético Bee Forest tem origem rastreada. Sabemos de qual colmeia veio, em qual apiário foi colhido, por quem foi processado e em que data.
+      </p>
+      <p class="text-mid mt-2">
+        Essa rastreabilidade não é um diferencial — é o mínimo que uma empresa responsável deve oferecer.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── TIMELINE ───────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem;align-items:start">
+        <div data-reveal>
+          <p class="eyebrow">Trajetória</p>
+          <span class="divider"></span>
+          <h2>Nossa jornada</h2>
+        </div>
+        <div class="timeline" data-reveal data-reveal-delay="1">
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <p class="timeline__year">2020</p>
+            <h4 class="timeline__title">Primeiros apiários</h4>
+            <p class="timeline__desc">Instalação dos primeiros meliponários em Alagoas com a espécie Melipona scutellaris (uruçu).</p>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <p class="timeline__year">2022</p>
+            <h4 class="timeline__title">Expansão para Pernambuco</h4>
+            <p class="timeline__desc">Novos apiários e parceiros produtores. Início do desenvolvimento da plataforma de gestão.</p>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <p class="timeline__year">2024</p>
+            <h4 class="timeline__title">Bee Forest App</h4>
+            <p class="timeline__desc">Lançamento da plataforma completa de gestão: inspeções, QR code, rastreabilidade e financeiro.</p>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <p class="timeline__year">2025</p>
+            <h4 class="timeline__title">Bee Forest Luxe</h4>
+            <p class="timeline__desc">Lançamento da linha de cosméticos com mel de uruçu e própolis vermelho. Golden Drops Sérum e mais.</p>
+          </div>
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <p class="timeline__year">2026</p>
+            <h4 class="timeline__title">302+ colmeias monitoradas</h4>
+            <p class="timeline__desc">Crescimento contínuo dos apiários e da plataforma. Rastreabilidade pública via QR code em todos os lotes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALORES ───────────────────────────────────────────────── -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-header section-header--center" data-reveal>
+        <p class="eyebrow">Valores</p>
+        <span class="divider divider--center"></span>
+        <h2>O que nos guia</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card" data-reveal>
+          <div class="value-card__icon">🌱</div>
+          <h4 class="value-card__title">Sustentabilidade</h4>
+          <p class="value-card__desc">A preservação das abelhas nativas é o centro de tudo. Cada decisão considera o impacto no ecossistema.</p>
+        </div>
+        <div class="value-card" data-reveal data-reveal-delay="1">
+          <div class="value-card__icon">🔍</div>
+          <h4 class="value-card__title">Transparência</h4>
+          <p class="value-card__desc">Rastreabilidade completa. O consumidor tem o direito de saber exatamente de onde vem o que consome.</p>
+        </div>
+        <div class="value-card" data-reveal data-reveal-delay="2">
+          <div class="value-card__icon">⚗️</div>
+          <h4 class="value-card__title">Ciência aplicada</h4>
+          <p class="value-card__desc">Tecnologia a serviço da natureza — da plataforma de gestão à formulação cosmética.</p>
+        </div>
+        <div class="value-card" data-reveal>
+          <div class="value-card__icon">🤝</div>
+          <h4 class="value-card__title">Comunidade</h4>
+          <p class="value-card__desc">Apicultura como vetor de desenvolvimento local no Nordeste. Parceiros com propósito.</p>
+        </div>
+        <div class="value-card" data-reveal data-reveal-delay="1">
+          <div class="value-card__icon">🎯</div>
+          <h4 class="value-card__title">Precisão</h4>
+          <p class="value-card__desc">Cada funcionalidade do App, cada ingrediente do cosmético — escolhidos com rigor e propósito.</p>
+        </div>
+        <div class="value-card" data-reveal data-reveal-delay="2">
+          <div class="value-card__icon">🐝</div>
+          <h4 class="value-card__title">Paixão</h4>
+          <p class="value-card__desc">A Bee Forest existe porque as abelhas nativas importam. Essa convicção está em tudo que fazemos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────── -->
+  <section class="section section--dark" style="text-align:center">
+    <div class="container" data-reveal>
+      <p class="eyebrow" style="color:var(--gold)">Faça parte</p>
+      <span class="divider divider--center"></span>
+      <h2 style="color:var(--cream);max-width:500px;margin:0 auto 1rem">
+        Junte-se ao movimento Bee Forest
+      </h2>
+      <p style="color:rgba(245,240,232,0.6);margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto">
+        Seja como produtor, parceiro ou consumidor consciente.
+      </p>
+      <div class="flex gap-2" style="justify-content:center;flex-wrap:wrap">
+        <a href="contato.html" class="btn btn-gold">Entrar em contato</a>
+        <a href="loja.html"    class="btn btn-outline">Ver produtos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do apiário ao luxo.</p>
+          <p class="footer__desc">Bee Forest une meliponicultura de precisão e cosméticos naturais, com origem 100% nordestina.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Produtos</p>
+          <ul class="footer__links">
+            <li><a href="app.html">Bee Forest App</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="loja.html">Loja Online</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Redes</p>
+          <ul class="footer__links">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>

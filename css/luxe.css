@@ -1,0 +1,294 @@
+/* ============================================================
+   BEE FOREST LUXE — Page Styles
+   ============================================================ */
+
+/* ── Hero ──────────────────────────────────────────────────── */
+.luxe-hero {
+  background: var(--black);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.luxe-hero__bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 55%;
+  overflow: hidden;
+}
+
+.luxe-hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0.85;
+}
+
+.luxe-hero__bg-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--black) 20%, rgba(10,10,10,0.2) 100%);
+}
+
+.luxe-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+  padding-top: var(--nav-h);
+  width: 100%;
+}
+
+.luxe-hero__text { max-width: 520px; }
+
+.luxe-hero__eyebrow { color: var(--gold); margin-bottom: 1.5rem; }
+
+.luxe-hero__title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.luxe-hero__title em { font-style: italic; color: var(--gold-light); }
+
+.luxe-hero__subtitle {
+  font-size: 1rem;
+  color: rgba(245,240,232,0.65);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  max-width: 400px;
+}
+
+.luxe-hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Side badge */
+.luxe-hero__badge {
+  position: absolute;
+  bottom: 3rem;
+  right: 4rem;
+  z-index: 3;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold-light);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.luxe-hero__badge strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.luxe-hero__badge span {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+@media (max-width: 860px) {
+  .luxe-hero__bg { width: 100%; opacity: 0.3; }
+  .luxe-hero__bg-fade { background: linear-gradient(to right, var(--black) 0%, rgba(10,10,10,0.8) 100%); }
+  .luxe-hero__badge { display: none; }
+}
+
+/* ── Products Grid ─────────────────────────────────────────── */
+.luxe-products { background: var(--cream); }
+
+.luxe-product-card {
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.luxe-product-card:hover {
+  box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
+
+.luxe-product-card--featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.luxe-product-card__img-wrap {
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.luxe-product-card--featured .luxe-product-card__img-wrap { aspect-ratio: auto; min-height: 340px; }
+
+.luxe-product-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.luxe-product-card:hover .luxe-product-card__img-wrap img { transform: scale(1.03); }
+
+.luxe-product-card__img-placeholder {
+  width: 80px;
+  height: 80px;
+  opacity: 0.2;
+}
+
+.luxe-product-card__body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.luxe-product-card--featured .luxe-product-card__body { padding: 2.5rem; justify-content: center; }
+
+.luxe-product-card__category {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.luxe-product-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+  color: var(--text-dark);
+}
+
+.luxe-product-card__sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.luxe-product-card__desc {
+  font-size: 0.875rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.luxe-product-card__ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+.ingredient-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--cream);
+  color: var(--text-mid);
+  padding: 0.3rem 0.7rem;
+  border-radius: 99px;
+  border: 1px solid var(--cream-dark);
+}
+
+.luxe-product-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.luxe-product-card__price {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  color: var(--gold-dark);
+  line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .luxe-product-card--featured {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Ingredients Section ───────────────────────────────────── */
+.ingredients-section {
+  background: var(--black);
+  color: var(--cream);
+}
+
+.ingredient-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  align-items: flex-start;
+}
+.ingredient-item:last-child { border-bottom: none; }
+
+.ingredient-item__num {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  min-width: 3rem;
+  opacity: 0.6;
+}
+
+.ingredient-item__name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.ingredient-item__desc {
+  font-size: 0.875rem;
+  color: rgba(245,240,232,0.55);
+  line-height: 1.75;
+}
+
+/* ── Philosophy section ────────────────────────────────────── */
+.luxe-philosophy {
+  background: url('../assets/images/WhatsApp_Image_2026-04-09_at_15_53_04.jpeg') center/cover no-repeat;
+  position: relative;
+  padding: 100px 0;
+  text-align: center;
+}
+.luxe-philosophy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.7);
+}
+.luxe-philosophy__content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  color: var(--cream);
+}
+.luxe-philosophy__quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}

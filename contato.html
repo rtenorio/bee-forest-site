@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contato — Bee Forest</title>
+  <meta name="description" content="Entre em contato com a Bee Forest. Dúvidas sobre o App, Luxe, mel ou parcerias." />
+
+  <meta property="og:title"       content="Contato — Bee Forest" />
+  <meta property="og:description" content="Entre em contato com a equipe Bee Forest." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon"        href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .contato-header {
+      background: var(--cream);
+      padding: calc(var(--nav-h) + 3.5rem) 0 3.5rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .contato-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info__item {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--cream-dark);
+      align-items: flex-start;
+    }
+    .contact-info__item:last-child { border-bottom: none; }
+    .contact-info__icon {
+      font-size: 1.5rem;
+      width: 2.5rem;
+      flex-shrink: 0;
+    }
+    .contact-info__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .contact-info__value {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* Form */
+    .contact-form {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+
+    .form-group { margin-bottom: 1.5rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      background: var(--white);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .form-control:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .form-control::placeholder { color: var(--text-light); }
+
+    select.form-control { cursor: pointer; }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+
+    .form-submit { width: 100%; justify-content: center; }
+
+    .form-status {
+      display: none;
+      padding: 1rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .form-status--success {
+      background: rgba(76,175,80,0.1);
+      border: 1px solid rgba(76,175,80,0.3);
+      color: #2E7D32;
+    }
+    .form-status--error {
+      background: rgba(229,115,115,0.1);
+      border: 1px solid rgba(229,115,115,0.3);
+      color: #C62828;
+    }
+    .form-status.is-visible { display: block; }
+
+    @media (max-width: 860px) {
+      .contato-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"   class="nav__link">Home</a></li>
+        <li><a href="app.html"     class="nav__link">App</a></li>
+        <li><a href="luxe.html"    class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"    class="nav__link">Loja</a></li>
+        <li><a href="sobre.html"   class="nav__link">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link nav__link--active">Contato</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="loja.html" class="btn btn-gold btn-sm">Ver Loja</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HEADER ────────────────────────────────────────────────── -->
+  <header class="contato-header">
+    <div class="container">
+      <p class="eyebrow">Bee Forest</p>
+      <h1 style="margin-top:0.5rem">Fale conosco</h1>
+      <p class="text-mid mt-2">Tem alguma dúvida? Quer conhecer o App, os produtos ou propor uma parceria?</p>
+    </div>
+  </header>
+
+  <!-- ── CONTENT ───────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="contato-layout">
+
+        <!-- Info -->
+        <div data-reveal>
+          <p class="eyebrow">Informações</p>
+          <span class="divider"></span>
+          <h3 style="margin-bottom:0.5rem">Estamos aqui para ajudar</h3>
+          <p class="text-mid" style="font-size:0.9rem;margin-bottom:2rem">
+            Respondemos normalmente em até 24 horas úteis.
+          </p>
+
+          <div class="contact-info__item">
+            <span class="contact-info__icon">📧</span>
+            <div>
+              <p class="contact-info__label">E-mail</p>
+              <p class="contact-info__value">contato@beeforest.com.br</p>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__icon">📍</span>
+            <div>
+              <p class="contact-info__label">Localização</p>
+              <p class="contact-info__value">Alagoas & Pernambuco<br>Brasil · Nordeste</p>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__icon">📱</span>
+            <div>
+              <p class="contact-info__label">App</p>
+              <p class="contact-info__value">
+                <a href="https://app.beeforest.com.br" target="_blank" rel="noopener"
+                   style="color:var(--gold)">app.beeforest.com.br</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-info__item">
+            <span class="contact-info__icon">🐝</span>
+            <div>
+              <p class="contact-info__label">Sobre</p>
+              <p class="contact-info__value">
+                Meliponicultura + Cosméticos naturais<br>
+                Origem nordestina · 100% rastreado
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div data-reveal data-reveal-delay="1">
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="nome" class="form-label">Nome *</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                class="form-control"
+                placeholder="Seu nome completo"
+                required
+                autocomplete="name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">E-mail *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="seu@email.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="assunto" class="form-label">Assunto *</label>
+              <select id="assunto" name="assunto" class="form-control" required>
+                <option value="">Selecione o assunto…</option>
+                <option value="App">Bee Forest App</option>
+                <option value="Luxe">Bee Forest Luxe</option>
+                <option value="Mel">Mel & Produtos</option>
+                <option value="Parceria">Parceria</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mensagem" class="form-label">Mensagem *</label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                class="form-control"
+                placeholder="Como podemos ajudar?"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold form-submit" id="submit-btn">
+              Enviar mensagem
+            </button>
+
+            <div class="form-status" id="form-status"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do apiário ao luxo.</p>
+          <p class="footer__desc">Bee Forest une meliponicultura de precisão e cosméticos naturais.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Produtos</p>
+          <ul class="footer__links">
+            <li><a href="app.html">Bee Forest App</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="loja.html">Loja Online</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Redes</p>
+          <ul class="footer__links">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+  <script>
+    // Contact form handler
+    (function () {
+      const API_BASE = 'https://bee-forest-app-production.up.railway.app';
+      const form      = document.getElementById('contact-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const status    = document.getElementById('form-status');
+
+      function showStatus(msg, type) {
+        status.textContent = msg;
+        status.className = `form-status form-status--${type} is-visible`;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nome     = form.nome.value.trim();
+        const email    = form.email.value.trim();
+        const assunto  = form.assunto.value;
+        const mensagem = form.mensagem.value.trim();
+
+        if (!nome || !email || !assunto || !mensagem) {
+          showStatus('Por favor, preencha todos os campos.', 'error');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando…';
+        status.className = 'form-status';
+
+        try {
+          const res = await fetch(`${API_BASE}/api/contact`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ nome, email, assunto, mensagem }),
+          });
+
+          if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.message || 'Erro ao enviar mensagem');
+          }
+
+          showStatus('Mensagem enviada com sucesso! Responderemos em até 24h.', 'success');
+          form.reset();
+          window.BF?.toast?.('Mensagem enviada! 🐝', 'success');
+        } catch (err) {
+          showStatus(err.message || 'Erro ao enviar. Tente novamente.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar mensagem';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

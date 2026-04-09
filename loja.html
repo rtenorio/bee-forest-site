@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja — Bee Forest</title>
+  <meta name="description" content="Cosméticos naturais e mel de uruçu do Nordeste. Qualidade rastreada do campo ao frasco." />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Loja Bee Forest" />
+  <meta property="og:description" content="Cosméticos com mel de uruçu e própolis vermelho. Qualidade rastreada do campo ao frasco." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <!-- Stripe public key (replace with real key via server or env) -->
+  <meta name="stripe-key" content="" />
+
+  <link rel="icon"        href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/loja.css" />
+
+  <!-- Stripe.js (loads async, no blocking) -->
+  <script src="https://js.stripe.com/v3/" async></script>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_apenas_abelha.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="index.html"  class="nav__link">Home</a></li>
+        <li><a href="app.html"    class="nav__link">App</a></li>
+        <li><a href="luxe.html"   class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"   class="nav__link nav__link--active">Loja</a></li>
+        <li><a href="sobre.html"  class="nav__link">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link">Contato</a></li>
+      </ul>
+
+      <div class="nav__cta">
+        <button class="cart-toggle-btn" id="cart-toggle" aria-label="Abrir carrinho">
+          🛒
+          <span class="cart-badge" id="cart-badge"></span>
+        </button>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close" aria-label="Fechar menu">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="app.html"     class="nav__drawer-link">Bee Forest App</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── LOJA HEADER ───────────────────────────────────────────── -->
+  <header class="loja-header">
+    <div class="container">
+      <p class="eyebrow">Bee Forest</p>
+      <h1>Loja</h1>
+      <p>Cosméticos e mel de origem certificada do Nordeste.</p>
+    </div>
+  </header>
+
+  <!-- ── PRODUCTS ──────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Filters -->
+      <div class="loja-filters" role="group" aria-label="Filtrar por categoria">
+        <button class="filter-btn is-active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="cosmético">Cosméticos</button>
+        <button class="filter-btn" data-filter="mel">Mel</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="loja-grid" id="product-grid">
+        <!-- Rendered by loja.js -->
+        <div style="grid-column:1/-1;text-align:center;padding:4rem 0;color:var(--text-light)">
+          Carregando produtos…
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUALITY STRIP ─────────────────────────────────────────── -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="grid-3" style="gap:2rem">
+        <div class="text-center" data-reveal>
+          <div style="font-size:2.5rem;margin-bottom:1rem">🌿</div>
+          <h4>100% Natural</h4>
+          <p class="text-mid mt-2" style="font-size:0.875rem">
+            Ingredientes colhidos diretamente nos apiários. Sem aditivos ou conservantes artificiais.
+          </p>
+        </div>
+        <div class="text-center" data-reveal data-reveal-delay="1">
+          <div style="font-size:2.5rem;margin-bottom:1rem">🔍</div>
+          <h4>Rastreabilidade</h4>
+          <p class="text-mid mt-2" style="font-size:0.875rem">
+            Cada produto tem origem documentada. QR code de rastreabilidade em todo lote.
+          </p>
+        </div>
+        <div class="text-center" data-reveal data-reveal-delay="2">
+          <div style="font-size:2.5rem;margin-bottom:1rem">🚚</div>
+          <h4>Entrega para todo Brasil</h4>
+          <p class="text-mid mt-2" style="font-size:0.875rem">
+            Frete calculado no checkout. Embalagem sustentável e segura.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CART SIDEBAR ──────────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Carrinho de compras">
+    <div class="cart-sidebar__header">
+      <h2 class="cart-sidebar__title">Carrinho</h2>
+      <button class="cart-sidebar__close" id="cart-close" aria-label="Fechar carrinho">×</button>
+    </div>
+
+    <div class="cart-sidebar__items" id="cart-items">
+      <div class="cart-empty">
+        <div class="cart-empty__icon">🛒</div>
+        <p class="cart-empty__text">Seu carrinho está vazio</p>
+      </div>
+    </div>
+
+    <div class="cart-sidebar__footer">
+      <div class="cart-total">
+        <span class="cart-total__label">Total</span>
+        <span class="cart-total__value" id="cart-total-value">R$ 0,00</span>
+      </div>
+      <button class="btn btn-gold cart-checkout-btn" id="checkout-btn">
+        Finalizar Compra
+      </button>
+      <p class="cart-note">PIX e cartão de crédito · Pagamento seguro via Stripe</p>
+    </div>
+  </aside>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do apiário ao luxo.</p>
+          <p class="footer__desc">Bee Forest une meliponicultura de precisão e cosméticos naturais, com origem 100% nordestina.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Produtos</p>
+          <ul class="footer__links">
+            <li><a href="app.html">Bee Forest App</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="loja.html">Loja Online</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Suporte</p>
+          <ul class="footer__links">
+            <li><a href="contato.html">Fale conosco</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="WhatsApp">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/loja.js"></script>
+</body>
+</html>
