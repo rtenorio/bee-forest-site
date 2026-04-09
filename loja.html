@@ -20,8 +20,8 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/loja.css" />
 
-  <!-- Stripe.js (loads async, no blocking) -->
-  <script src="https://js.stripe.com/v3/" async></script>
+  <!-- Stripe.js — uncomment when STRIPE_PUBLIC_KEY is configured -->
+  <!-- <script src="https://js.stripe.com/v3/" async></script> -->
 </head>
 <body>
 
@@ -152,7 +152,7 @@
       <button class="btn btn-gold cart-checkout-btn" id="checkout-btn">
         Finalizar Compra
       </button>
-      <p class="cart-note">PIX e cartão de crédito · Pagamento seguro via Stripe</p>
+      <p class="cart-note">Atendimento via WhatsApp · Pagamento online em breve</p>
     </div>
   </aside>
 
@@ -197,6 +197,58 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── CHECKOUT MODAL ───────────────────────────────────────── -->
+  <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-heading">
+    <div class="checkout-modal__panel">
+
+      <div class="checkout-modal__header">
+        <span class="checkout-modal__icon">🐝</span>
+        <h2 class="checkout-modal__title" id="checkout-modal-heading">
+          Finalizar pedido
+        </h2>
+        <button class="checkout-modal__close" id="checkout-modal-close" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="checkout-modal__body">
+        <p class="checkout-modal__message">
+          Pagamento online em breve. Por enquanto, finalize seu pedido diretamente pelo WhatsApp — respondemos rápido! 🍯
+        </p>
+
+        <!-- Cart summary -->
+        <div class="checkout-modal__summary">
+          <p class="checkout-modal__summary-title">Seu pedido</p>
+          <ul class="checkout-modal__cart-list" id="checkout-modal-cart">
+            <!-- Filled by loja.js -->
+          </ul>
+          <div class="checkout-modal__total">
+            <span class="checkout-modal__total-label">Total</span>
+            <span class="checkout-modal__total-value" id="checkout-modal-total">R$ 0,00</span>
+          </div>
+        </div>
+
+        <!-- WhatsApp CTA -->
+        <a
+          class="btn btn-whatsapp"
+          id="checkout-whatsapp-link"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.518 5.83L.057 23.082a.75.75 0 0 0 .921.921l5.344-1.46A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.371l-.36-.213-3.72 1.016 1.015-3.63-.234-.374A9.818 9.818 0 1 1 12 21.818z"/>
+          </svg>
+          Comprar pelo WhatsApp
+        </a>
+
+        <p class="checkout-modal__footer-note">
+          Aceitamos PIX, transferência e cartão. Entrega para todo Brasil.
+        </p>
+      </div>
+
+    </div>
+  </div>
 
   <div class="toast-container"></div>
 

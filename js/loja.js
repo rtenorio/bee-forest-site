@@ -1,18 +1,23 @@
 /* ============================================================
    BEE FOREST — loja.js
-   Products rendering, cart (localStorage), Stripe Checkout
+   Products rendering, cart (localStorage), checkout
    ============================================================ */
 
 (function () {
   'use strict';
 
   // ── Config ────────────────────────────────────────────────────
-  // Stripe public key is injected via meta tag or window variable
+  // To enable Stripe: set STRIPE_PUBLIC_KEY via <meta name="stripe-key"> or
+  // window.STRIPE_PUBLIC_KEY. When set and Stripe.js loads, online checkout
+  // activates automatically — no other code changes needed.
   const STRIPE_PUBLIC_KEY = document.querySelector('meta[name="stripe-key"]')?.content
     || window.STRIPE_PUBLIC_KEY
     || '';
 
-  const API_BASE = 'https://bee-forest-app-production.up.railway.app'; // Railway backend
+  const API_BASE = 'https://bee-forest-app-production.up.railway.app';
+
+  // WhatsApp: set number in international format without + (e.g. 5582999990000)
+  const WHATSAPP_NUMBER = window.BF_WHATSAPP || '5500000000000';
 
   // ── State ─────────────────────────────────────────────────────
   let products = [];
@@ -24,7 +29,7 @@
   const cartSidebar = document.getElementById('cart-sidebar');
   const cartOverlay = document.getElementById('cart-overlay');
   const cartItems   = document.getElementById('cart-items');
-  const cartTotal   = document.getElementById('cart-total-value');
+  const cartTotalEl = document.getElementById('cart-total-value');
   const cartBadge   = document.getElementById('cart-badge');
   const cartToggle  = document.getElementById('cart-toggle');
   const cartClose   = document.getElementById('cart-close');
@@ -37,8 +42,10 @@
     renderCart();
     bindCartUI();
     bindFilters();
+    bindCheckoutModal();
+    handleStripeReturn();
 
-    // Init Stripe if key available
+    // Init Stripe if key is available — activates online checkout automatically
     if (STRIPE_PUBLIC_KEY && typeof Stripe !== 'undefined') {
       stripe = Stripe(STRIPE_PUBLIC_KEY);
     }
@@ -111,13 +118,12 @@
       grid.appendChild(card);
     });
 
-    // Bind add-to-cart buttons
     grid.querySelectorAll('.add-to-cart').forEach((btn) => {
       btn.addEventListener('click', () => addToCart(btn.dataset.id));
     });
   }
 
-  // ── Filter ────────────────────────────────────────────────────
+  // ── Filters ───────────────────────────────────────────────────
   function bindFilters() {
     document.querySelectorAll('.filter-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -130,7 +136,7 @@
     });
   }
 
-  // ── Cart ──────────────────────────────────────────────────────
+  // ── Cart: persistence ─────────────────────────────────────────
   function loadCart() {
     try { return JSON.parse(localStorage.getItem('bf_cart') || '[]'); }
     catch { return []; }
@@ -140,6 +146,7 @@
     localStorage.setItem('bf_cart', JSON.stringify(cart));
   }
 
+  // ── Cart: mutations ───────────────────────────────────────────
   function addToCart(id) {
     const product = products.find(p => p.id === id);
     if (!product) return;
@@ -161,21 +168,20 @@
     renderCart();
   }
 
-  function cartTotal_() {
+  function cartSum() {
     return cart.reduce((sum, i) => sum + i.preco * i.qty, 0);
   }
 
+  // ── Cart: render ──────────────────────────────────────────────
   function renderCart() {
     if (!cartItems) return;
 
-    // Badge
     const count = cart.reduce((s, i) => s + i.qty, 0);
     if (cartBadge) {
       cartBadge.textContent = count > 0 ? count : '';
       cartBadge.dataset.count = count;
     }
 
-    // Items
     if (!cart.length) {
       cartItems.innerHTML = `
         <div class="cart-empty">
@@ -205,17 +211,18 @@
       });
     }
 
-    // Total
-    if (cartTotal) {
-      cartTotal.textContent = `R$ ${cartTotal_().toFixed(2).replace('.', ',')}`;
+    if (cartTotalEl) {
+      cartTotalEl.textContent = `R$ ${cartSum().toFixed(2).replace('.', ',')}`;
     }
   }
 
-  function openCart()  {
+  // ── Cart: open/close ──────────────────────────────────────────
+  function openCart() {
     cartSidebar?.classList.add('is-open');
     cartOverlay?.classList.add('is-open');
     document.body.style.overflow = 'hidden';
   }
+
   function closeCart() {
     cartSidebar?.classList.remove('is-open');
     cartOverlay?.classList.remove('is-open');
@@ -229,31 +236,73 @@
     checkoutBtn?.addEventListener('click', handleCheckout);
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeCart();
+      if (e.key === 'Escape') {
+        closeCart();
+        closeCheckoutModal();
+      }
     });
   }
 
-  // ── Stripe Checkout ───────────────────────────────────────────
-  async function handleCheckout() {
+  // ── Checkout: dispatcher ──────────────────────────────────────
+  // To switch to Stripe: set STRIPE_PUBLIC_KEY (see Config above).
+  // checkoutStripe() is already implemented — no refactoring needed.
+  function handleCheckout() {
     if (!cart.length) {
       window.BF?.toast?.('Adicione produtos ao carrinho primeiro', '');
       return;
     }
 
-    if (!stripe) {
-      window.BF?.toast?.('Pagamento não disponível no momento. Entre em contato.', 'error');
-      return;
+    if (stripe) {
+      checkoutStripe();
+    } else {
+      checkoutWhatsApp();
+    }
+  }
+
+  // ── Checkout: WhatsApp (current) ──────────────────────────────
+  function checkoutWhatsApp() {
+    // Populate modal with cart summary and correct WhatsApp link
+    const modalCartEl = document.getElementById('checkout-modal-cart');
+    if (modalCartEl) {
+      modalCartEl.innerHTML = cart.map(i =>
+        `<li>${i.nome}${i.qty > 1 ? ` ×${i.qty}` : ''} — R$ ${(i.preco * i.qty).toFixed(2).replace('.', ',')}</li>`
+      ).join('');
     }
 
+    const totalEl = document.getElementById('checkout-modal-total');
+    if (totalEl) totalEl.textContent = `R$ ${cartSum().toFixed(2).replace('.', ',')}`;
+
+    const waLink = document.getElementById('checkout-whatsapp-link');
+    if (waLink) {
+      const msg = buildWhatsAppMessage();
+      waLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    closeCart();
+    openCheckoutModal();
+  }
+
+  function buildWhatsAppMessage() {
+    const lines = ['Olá! Gostaria de comprar os seguintes produtos Bee Forest:', ''];
+    cart.forEach(i => {
+      lines.push(`• ${i.nome}${i.qty > 1 ? ` (×${i.qty})` : ''} — R$ ${(i.preco * i.qty).toFixed(2).replace('.', ',')}`);
+    });
+    lines.push('');
+    lines.push(`Total: R$ ${cartSum().toFixed(2).replace('.', ',')}`);
+    return lines.join('\n');
+  }
+
+  // ── Checkout: Stripe (ready for activation) ───────────────────
+  async function checkoutStripe() {
     checkoutBtn.disabled = true;
     checkoutBtn.textContent = 'Processando…';
 
     try {
       const res = await fetch(`${API_BASE}/api/checkout`, {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: cart.map(i => ({ id: i.id, qty: i.qty })),
+          items:       cart.map(i => ({ id: i.id, qty: i.qty })),
           success_url: `${window.location.origin}/loja.html?sucesso=1`,
           cancel_url:  `${window.location.origin}/loja.html?cancelado=1`,
         }),
@@ -269,16 +318,40 @@
     }
   }
 
-  // ── Handle return from Stripe ─────────────────────────────────
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('sucesso') === '1') {
-    cart = [];
-    saveCart();
-    setTimeout(() => window.BF?.toast?.('Pedido realizado com sucesso! Obrigado 🐝', 'success'), 500);
-    history.replaceState({}, '', window.location.pathname);
-  } else if (params.get('cancelado') === '1') {
-    setTimeout(() => window.BF?.toast?.('Pagamento cancelado. Seu carrinho foi preservado.', ''), 500);
-    history.replaceState({}, '', window.location.pathname);
+  // ── Checkout modal ────────────────────────────────────────────
+  function openCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    modal?.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCheckoutModal() {
+    const modal = document.getElementById('checkout-modal');
+    modal?.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  function bindCheckoutModal() {
+    const modal   = document.getElementById('checkout-modal');
+    const closeEl = document.getElementById('checkout-modal-close');
+    closeEl?.addEventListener('click', closeCheckoutModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeCheckoutModal();
+    });
+  }
+
+  // ── Handle Stripe return (used after Stripe is activated) ─────
+  function handleStripeReturn() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('sucesso') === '1') {
+      cart = [];
+      saveCart();
+      setTimeout(() => window.BF?.toast?.('Pedido realizado! Obrigado 🐝', 'success'), 500);
+      history.replaceState({}, '', window.location.pathname);
+    } else if (params.get('cancelado') === '1') {
+      setTimeout(() => window.BF?.toast?.('Pagamento cancelado. Carrinho preservado.', ''), 500);
+      history.replaceState({}, '', window.location.pathname);
+    }
   }
 
   // ── Start ─────────────────────────────────────────────────────
