@@ -33,6 +33,17 @@
     "destaque": true
   },
   {
+    "id": "beekiss-lip-tint",
+    "nome": "BeeKiss Lip Tint",
+    "categoria": "cosmético",
+    "subtitulo": "Lip tint · 5,5ml",
+    "descricao": "Lip tint com mel de uruçu e própolis vermelha. Embalagem dourada com cartucho hexagonal. Cor intensa, hidratação profunda, longa duração.",
+    "ingredientes": ["Mel de Uruçu", "Própolis Vermelha", "Extrato de Própolis", "Cera de Abelha"],
+    "preco": 89.00,
+    "imagem": "assets/images/beekiss_lip_tint.jpg",
+    "destaque": true
+  },
+  {
     "id": "nectar-balm",
     "nome": "Nectar Balm",
     "categoria": "cosmético",
