@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descobrir meu produto — Bee Forest</title>
+  <meta name="description" content="Responda 3 perguntas e descubra qual produto Bee Forest é ideal para você." />
+
+  <meta property="og:title"       content="Qual produto Bee Forest é para você?" />
+  <meta property="og:description" content="Quiz rápido: descubra se o mel de uruçu é para saúde, pele ou culinária — e qual a sua dosagem ideal." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon" href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ── Quiz wrapper ── */
+    .quiz-page {
+      background: var(--cream);
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+    }
+
+    .quiz-section {
+      padding: 4rem 0 6rem;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .quiz-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 0.75rem;
+    }
+    .quiz-header p {
+      color: var(--text-mid);
+      max-width: 440px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    /* ── Progress ── */
+    .quiz-progress {
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
+    .quiz-progress__track {
+      height: 3px;
+      background: var(--cream-dark);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .quiz-progress__fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .quiz-progress__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Step card ── */
+    .quiz-card {
+      max-width: 560px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+    }
+
+    .quiz-step { display: none; }
+    .quiz-step.is-active { display: block; }
+
+    .quiz-question {
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 0.625rem;
+    }
+    .quiz-hint {
+      font-size: 0.825rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Option buttons ── */
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--cream);
+      border: 1.5px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-align: left;
+      width: 100%;
+      font-family: var(--font-sans);
+    }
+    .quiz-option:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.05);
+      transform: translateX(3px);
+    }
+    .quiz-option.is-selected {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.1);
+    }
+    .quiz-option__icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      width: 2rem;
+      text-align: center;
+    }
+    .quiz-option__text { flex: 1; }
+    .quiz-option__label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .quiz-option__sub {
+      font-size: 0.775rem;
+      color: var(--text-light);
+    }
+    .quiz-option__check {
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--cream-dark);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      transition: background 0.2s, border-color 0.2s;
+      color: transparent;
+    }
+    .quiz-option.is-selected .quiz-option__check {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── Nav buttons ── */
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .quiz-back {
+      background: none;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      padding: 0;
+      transition: color var(--transition);
+    }
+    .quiz-back:hover { color: var(--text-mid); }
+    .quiz-back:disabled { opacity: 0; pointer-events: none; }
+
+    .quiz-next {
+      min-width: 140px;
+    }
+
+    /* ── Result ── */
+    .quiz-result { display: none; }
+    .quiz-result.is-active { display: block; }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-dark);
+      padding: 0.4rem 0.875rem;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .result-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .result-desc {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .result-product {
+      background: var(--cream);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+    .result-product__img {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: var(--cream-dark);
+      flex-shrink: 0;
+    }
+    .result-product__img-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius);
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .result-product__label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .result-product__name {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+    .result-product__detail {
+      font-size: 0.8rem;
+      color: var(--text-mid);
+    }
+    .result-product__price {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--gold-dark);
+      margin-top: 0.25rem;
+    }
+
+    .result-dosage {
+      background: rgba(201,168,76,0.08);
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.25rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 1.75rem;
+    }
+    .result-dosage__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.4rem;
+    }
+    .result-dosage__text {
+      font-size: 0.875rem;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .result-restart {
+      font-size: 0.78rem;
+      text-align: center;
+      color: var(--text-light);
+      margin-top: 1.5rem;
+    }
+    .result-restart button {
+      background: none;
+      border: none;
+      color: var(--gold-dark);
+      cursor: pointer;
+      font-size: 0.78rem;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* ── Animation ── */
+    .quiz-step.is-entering {
+      animation: slideUp 0.3s ease forwards;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_bee_forest_fundo_transparente_de_verdade.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html"   class="nav__link">Home</a></li>
+        <li><a href="mel.html"     class="nav__link">Mel de Uruçu</a></li>
+        <li><a href="luxe.html"    class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"    class="nav__link">Loja</a></li>
+        <li><a href="sobre.html"   class="nav__link">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link">Contato</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="loja.html" class="btn btn-gold btn-sm">Ver Loja</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close" aria-label="Fechar menu">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="mel.html"     class="nav__drawer-link">Mel de Uruçu</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── QUIZ ──────────────────────────────────────────────────── -->
+  <div class="quiz-page">
+    <section class="quiz-section">
+      <div class="container">
+
+        <div class="quiz-header">
+          <p class="eyebrow">Bee Forest · Quiz</p>
+          <h1>Qual produto é para você?</h1>
+          <p>3 perguntas. Resultado imediato. Sem e-mail obrigatório.</p>
+        </div>
+
+        <!-- Progress -->
+        <div class="quiz-progress" id="quiz-progress">
+          <div class="quiz-progress__track">
+            <div class="quiz-progress__fill" id="progress-fill" style="width:33%"></div>
+          </div>
+          <p class="quiz-progress__label" id="progress-label">Pergunta 1 de 3</p>
+        </div>
+
+        <!-- Card -->
+        <div class="quiz-card" id="quiz-card">
+
+          <!-- ── Pergunta 1 ── -->
+          <div class="quiz-step is-active" id="step-1" data-step="1">
+            <h2 class="quiz-question">O que mais te interessa no mel de uruçu?</h2>
+            <p class="quiz-hint">Escolha a opção que mais combina com você agora.</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="saude">
+                <span class="quiz-option__icon">💪</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Saúde & Imunidade</span>
+                  <span class="quiz-option__sub">Quero usar como suplemento diário</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+              <button class="quiz-option" data-value="pele">
+                <span class="quiz-option__icon">✨</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Beleza & Skincare</span>
+                  <span class="quiz-option__sub">Quero uma pele mais hidratada e saudável</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+              <button class="quiz-option" data-value="culinaria">
+                <span class="quiz-option__icon">🍽️</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Culinária & Sabor</span>
+                  <span class="quiz-option__sub">Quero substituir o açúcar ou adoçar receitas</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+            </div>
+            <div class="quiz-nav">
+              <button class="quiz-back" disabled>← Voltar</button>
+              <button class="btn btn-gold quiz-next" id="next-1" disabled>Próxima →</button>
+            </div>
+          </div>
+
+          <!-- ── Pergunta 2 ── -->
+          <div class="quiz-step" id="step-2" data-step="2">
+            <h2 class="quiz-question" id="q2-text">Como é a sua rotina hoje?</h2>
+            <p class="quiz-hint">Isso nos ajuda a indicar a forma de uso certa.</p>
+            <div class="quiz-options" id="q2-options">
+              <!-- Preenchido dinamicamente por JS -->
+            </div>
+            <div class="quiz-nav">
+              <button class="quiz-back" data-target="1">← Voltar</button>
+              <button class="btn btn-gold quiz-next" id="next-2" disabled>Próxima →</button>
+            </div>
+          </div>
+
+          <!-- ── Pergunta 3 ── -->
+          <div class="quiz-step" id="step-3" data-step="3">
+            <h2 class="quiz-question">Qual é o seu estilo de consumo?</h2>
+            <p class="quiz-hint">Seja honesto — não tem resposta errada.</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="minimalista">
+                <span class="quiz-option__icon">🎯</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Minimalista</span>
+                  <span class="quiz-option__sub">Menos produtos, mais eficiência. Consistência acima de tudo.</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+              <button class="quiz-option" data-value="rotina">
+                <span class="quiz-option__icon">📅</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Rotina diária</span>
+                  <span class="quiz-option__sub">Gosto de rituais. Cada produto tem seu momento.</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+              <button class="quiz-option" data-value="premium">
+                <span class="quiz-option__icon">🏆</span>
+                <span class="quiz-option__text">
+                  <span class="quiz-option__label">Premium</span>
+                  <span class="quiz-option__sub">Quero o melhor do melhor. Qualidade é prioridade.</span>
+                </span>
+                <span class="quiz-option__check">✓</span>
+              </button>
+            </div>
+            <div class="quiz-nav">
+              <button class="quiz-back" data-target="2">← Voltar</button>
+              <button class="btn btn-gold quiz-next" id="next-3" disabled>Ver meu resultado →</button>
+            </div>
+          </div>
+
+          <!-- ── Resultado ── -->
+          <div class="quiz-result" id="quiz-result">
+            <!-- Preenchido por JS -->
+          </div>
+
+        </div><!-- /quiz-card -->
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do meliponário ao luxo.</p>
+          <p class="footer__desc">Bee Forest une meliponicultura de precisão e cosméticos naturais, com origem 100% nordestina.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Mel</p>
+          <ul class="footer__links">
+            <li><a href="mel.html">Mel de Uruçu</a></li>
+            <li><a href="loja.html">Comprar</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Loja</p>
+          <ul class="footer__links">
+            <li><a href="loja.html">Todos os produtos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    // ── Quiz data ──────────────────────────────────────────────
+    const Q2_VARIANTS = {
+      saude: {
+        question: 'Como é a sua rotina de saúde hoje?',
+        options: [
+          { value: 'iniciante', icon: '🌱', label: 'Estou começando', sub: 'Ainda não tenho uma rotina de suplementação' },
+          { value: 'regular',   icon: '🔄', label: 'Já tenho hábitos',  sub: 'Tomo suplementos ou chás regularmente' },
+          { value: 'avancado',  icon: '⚡', label: 'Muito ativo/a',     sub: 'Rotina intensa — treinos, alimentação controlada' },
+        ],
+      },
+      pele: {
+        question: 'Qual é sua maior preocupação com a pele?',
+        options: [
+          { value: 'hidratacao', icon: '💧', label: 'Ressecamento',    sub: 'Pele seca, opaca, que pede hidratação constante' },
+          { value: 'oleosidade', icon: '✨', label: 'Brilho e manchas', sub: 'Pele oleosa, poros abertos, tom irregular' },
+          { value: 'aging',      icon: '⏳', label: 'Sinais de tempo',  sub: 'Linhas finas, firmeza e luminosidade' },
+        ],
+      },
+      culinaria: {
+        question: 'Como você costuma adoçar seus alimentos?',
+        options: [
+          { value: 'acucar',    icon: '🍬', label: 'Açúcar refinado',   sub: 'Uso açúcar branco no dia a dia' },
+          { value: 'natural',   icon: '🌿', label: 'Adoçantes naturais', sub: 'Uso mel convencional, demerara ou stevia' },
+          { value: 'nenhum',    icon: '🎯', label: 'Evito adoçar',       sub: 'Prefiro o sabor natural dos alimentos' },
+        ],
+      },
+    };
+
+    const RESULTS = {
+      saude: {
+        badge:   '🍯 Suplementação',
+        title:   'Mel de Uruçu puro — 1 colher ao dia',
+        desc:    'Para você, o mel de uruçu funciona melhor como suplemento diário. A forma mais direta: 1 colher de chá (5ml) em jejum, puro ou dissolvido em água morna abaixo de 40°C. Nunca aqueça — o calor destrói as enzimas.',
+        dosage:  '1 colher de chá (5ml) pela manhã, em jejum.\nPode aumentar para 2 colheres após 2 semanas.',
+        product: { id: 'mel-urucu-100g', nome: 'Mel de Uruçu 100g', sub: 'Mel puro · origem rastreada', preco: 'R$ 79,00', imagem: 'assets/images/potes_de_mel.png', link: 'loja.html' },
+      },
+      pele: {
+        badge:   '✨ Skincare',
+        title:   'Golden Drops Sérum — sua pele precisa disso',
+        desc:    'Para o seu objetivo, o mel de uruçu funciona melhor como ativo cosmético. O Golden Drops Sérum concentra própolis vermelha, mel de uruçu e CoQ10 — o trio antioxidante que a sua pele precisa, formulado para máxima absorção.',
+        dosage:  '2 gotas pela manhã após a limpeza, antes do hidratante.\nÀ noite: 3 gotas no rosto limpo.',
+        product: { id: 'golden-drops', nome: 'Golden Drops Sérum', sub: 'Sérum antioxidante · 30ml', preco: 'R$ 189,00', imagem: 'assets/images/serum.jpg', link: 'loja.html' },
+      },
+      culinaria: {
+        badge:   '🍽️ Culinária',
+        title:   'Mel de Uruçu — o adoçante mais nobre',
+        desc:    'Para uso culinário, o mel de uruçu é substituto premium do açúcar refinado. Sabor mais ácido e complexo que o mel convencional. Regra de ouro: use 70% da quantidade de açúcar da receita — o mel de uruçu é mais doce e aromático.',
+        dosage:  'Proporção: 70g de mel substituem 100g de açúcar.\nEvite aquecimento acima de 40°C para preservar as propriedades.',
+        product: { id: 'mel-urucu-100g', nome: 'Mel de Uruçu 100g', sub: 'Mel puro · sem conservantes', preco: 'R$ 79,00', imagem: 'assets/images/potes_de_mel.png', link: 'loja.html' },
+      },
+    };
+
+    // ── State ──────────────────────────────────────────────────
+    const answers = { q1: null, q2: null, q3: null };
+    let currentStep = 1;
+
+    // ── DOM refs ───────────────────────────────────────────────
+    const progressFill  = document.getElementById('progress-fill');
+    const progressLabel = document.getElementById('progress-label');
+    const quizProgress  = document.getElementById('quiz-progress');
+    const quizResult    = document.getElementById('quiz-result');
+
+    // ── Step 1 ─────────────────────────────────────────────────
+    document.querySelectorAll('#step-1 .quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#step-1 .quiz-option').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers.q1 = btn.dataset.value;
+        document.getElementById('next-1').disabled = false;
+        populateQ2(answers.q1);
+      });
+    });
+
+    document.getElementById('next-1').addEventListener('click', () => goToStep(2));
+
+    // ── Step 2 (dynamic) ───────────────────────────────────────
+    function populateQ2(q1val) {
+      const variant = Q2_VARIANTS[q1val];
+      if (!variant) return;
+      document.getElementById('q2-text').textContent = variant.question;
+      const container = document.getElementById('q2-options');
+      container.innerHTML = variant.options.map(o => `
+        <button class="quiz-option" data-value="${o.value}">
+          <span class="quiz-option__icon">${o.icon}</span>
+          <span class="quiz-option__text">
+            <span class="quiz-option__label">${o.label}</span>
+            <span class="quiz-option__sub">${o.sub}</span>
+          </span>
+          <span class="quiz-option__check">✓</span>
+        </button>
+      `).join('');
+
+      container.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          container.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('is-selected'));
+          btn.classList.add('is-selected');
+          answers.q2 = btn.dataset.value;
+          document.getElementById('next-2').disabled = false;
+        });
+      });
+    }
+
+    document.getElementById('next-2').addEventListener('click', () => goToStep(3));
+
+    // ── Step 3 ─────────────────────────────────────────────────
+    document.querySelectorAll('#step-3 .quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#step-3 .quiz-option').forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        answers.q3 = btn.dataset.value;
+        document.getElementById('next-3').disabled = false;
+      });
+    });
+
+    document.getElementById('next-3').addEventListener('click', showResult);
+
+    // ── Back buttons ───────────────────────────────────────────
+    document.querySelectorAll('.quiz-back[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => goToStep(parseInt(btn.dataset.target)));
+    });
+
+    // ── Navigation ─────────────────────────────────────────────
+    function goToStep(n) {
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('is-active', 'is-entering'));
+      const target = document.getElementById(`step-${n}`);
+      if (!target) return;
+      target.classList.add('is-active', 'is-entering');
+      currentStep = n;
+      const pct = Math.round((n / 3) * 100);
+      progressFill.style.width = pct + '%';
+      progressLabel.textContent = `Pergunta ${n} de 3`;
+    }
+
+    // ── Result ─────────────────────────────────────────────────
+    function showResult() {
+      const key    = answers.q1 || 'saude';
+      const result = RESULTS[key];
+
+      const imgHTML = result.product.imagem
+        ? `<img class="result-product__img" src="${result.product.imagem}" alt="${result.product.nome}" loading="lazy">`
+        : `<div class="result-product__img-placeholder">🍯</div>`;
+
+      quizResult.innerHTML = `
+        <span class="result-badge">${result.badge}</span>
+        <h2 class="result-title">${result.title}</h2>
+        <p class="result-desc">${result.desc}</p>
+
+        <div class="result-product">
+          ${imgHTML}
+          <div>
+            <p class="result-product__label">Produto recomendado</p>
+            <p class="result-product__name">${result.product.nome}</p>
+            <p class="result-product__detail">${result.product.sub}</p>
+            <p class="result-product__price">${result.product.preco}</p>
+          </div>
+        </div>
+
+        <div class="result-dosage">
+          <p class="result-dosage__label">Sua dosagem recomendada</p>
+          <p class="result-dosage__text">${result.dosage.replace(/\n/g, '<br>')}</p>
+        </div>
+
+        <div class="result-actions">
+          <a href="${result.product.link}" class="btn btn-gold">Comprar agora</a>
+          <a href="loja.html" class="btn btn-outline">Ver toda a loja</a>
+        </div>
+
+        <p class="result-restart">
+          Quer refazer o quiz?
+          <button onclick="restartQuiz()">Começar de novo</button>
+        </p>
+      `;
+
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('is-active'));
+      quizResult.classList.add('is-active');
+      progressFill.style.width = '100%';
+      progressLabel.textContent = 'Resultado ✓';
+    }
+
+    // ── Restart ────────────────────────────────────────────────
+    window.restartQuiz = function () {
+      answers.q1 = answers.q2 = answers.q3 = null;
+      quizResult.classList.remove('is-active');
+      document.getElementById('next-1').disabled = true;
+      document.getElementById('next-2').disabled = true;
+      document.getElementById('next-3').disabled = true;
+      document.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('is-selected'));
+      goToStep(1);
+    };
+
+  })();
+  </script>
+</body>
+</html>

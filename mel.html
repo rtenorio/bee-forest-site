@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mel de Uruçu — Bee Forest</title>
+  <meta name="description" content="O mel mais raro do Nordeste. Colhido da Melipona scutellaris nos meliponários de Alagoas e Pernambuco." />
+
+  <meta property="og:title"       content="Mel de Uruçu Bee Forest — O mel mais raro do Nordeste" />
+  <meta property="og:description" content="Colhido da Melipona scutellaris. Antioxidante, antimicrobiano, umectante. Menos de 2 litros por colmeia por ano." />
+  <meta property="og:image"       content="assets/images/WhatsApp_Image_2026-04-09_at_19_10_49.jpeg" />
+
+  <link rel="icon" href="assets/images/logo_apenas_abelha.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ── Hero ── */
+    .mel-hero {
+      background-image: url('assets/images/PHOTO-2025-04-29-19-34-37.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .mel-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.62);
+    }
+    .mel-hero__content {
+      position: relative;
+      z-index: 1;
+      color: var(--cream);
+      padding-top: var(--nav-h);
+    }
+    .mel-hero__eyebrow { color: var(--gold); margin-bottom: 1.5rem; }
+    .mel-hero__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.75rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    }
+    .mel-hero__subtitle {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      color: rgba(245,240,232,0.75);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .mel-hero__rarity {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold-light);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+    }
+    .mel-hero__rarity-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── O que é ── */
+    .mel-what { background: var(--cream); }
+    .mel-what__lead {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+    .mel-what__lead em { font-style: italic; color: var(--gold-dark); }
+
+    /* ── Propriedades ── */
+    .prop-card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .prop-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .prop-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+    }
+    .prop-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+    .prop-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-dark);
+    }
+    .prop-card__desc { font-size: 0.875rem; color: var(--text-mid); line-height: 1.75; }
+
+    /* ── Usos ── */
+    .usos-section { background: var(--black); }
+    .uso-item {
+      display: flex;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: flex-start;
+    }
+    .uso-item:last-child { border-bottom: none; }
+    .uso-item__icon {
+      font-size: 2.25rem;
+      flex-shrink: 0;
+      width: 3rem;
+      text-align: center;
+      margin-top: 2px;
+    }
+    .uso-item__label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .uso-item__title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .uso-item__desc { font-size: 0.875rem; color: rgba(245,240,232,0.55); line-height: 1.75; }
+
+    /* ── Origem ── */
+    .origem-section { background: var(--white); }
+    .origem-img-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .origem-img-wrap img { width: 100%; height: 480px; object-fit: cover; }
+    .origem-img-badge {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.875rem;
+      border-radius: var(--radius);
+    }
+
+    .locais-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .locais-list__item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+    }
+    .locais-list__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── CTA duplo ── */
+    .mel-cta { background: var(--cream); }
+    .mel-cta__inner {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .mel-cta__title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      margin-bottom: 0.75rem;
+    }
+    .mel-cta__sub { color: var(--text-mid); margin-bottom: 2.5rem; }
+    .mel-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav class="nav nav--hero" aria-label="Navegação principal">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="assets/images/logo_bee_forest_fundo_transparente_de_verdade.png" alt="Bee Forest"
+             onerror="this.style.display='none'">
+        <span class="nav__logo-text">BEE · FOREST</span>
+      </a>
+
+      <ul class="nav__links">
+        <li><a href="index.html"   class="nav__link">Home</a></li>
+        <li><a href="mel.html"     class="nav__link nav__link--active">Mel de Uruçu</a></li>
+        <li><a href="luxe.html"    class="nav__link">Luxe</a></li>
+        <li><a href="loja.html"    class="nav__link">Loja</a></li>
+        <li><a href="sobre.html"   class="nav__link">Sobre</a></li>
+        <li><a href="contato.html" class="nav__link">Contato</a></li>
+      </ul>
+
+      <div class="nav__cta">
+        <a href="quiz.html" class="btn btn-gold btn-sm">Descobrir meu produto</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav__drawer">
+    <div class="nav__drawer-overlay"></div>
+    <div class="nav__drawer-panel">
+      <button class="nav__drawer-close" aria-label="Fechar menu">×</button>
+      <a href="index.html"   class="nav__drawer-link">Home</a>
+      <a href="mel.html"     class="nav__drawer-link">Mel de Uruçu</a>
+      <a href="luxe.html"    class="nav__drawer-link">Bee Forest Luxe</a>
+      <a href="loja.html"    class="nav__drawer-link">Loja</a>
+      <a href="sobre.html"   class="nav__drawer-link">Sobre</a>
+      <a href="contato.html" class="nav__drawer-link">Contato</a>
+    </div>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section class="mel-hero">
+    <div class="mel-hero__content container">
+      <p class="eyebrow mel-hero__eyebrow">Bee Forest · Mel Puro</p>
+      <h1 class="mel-hero__title">
+        O mel mais raro<br>do Nordeste
+      </h1>
+      <p class="mel-hero__subtitle">
+        Colhido da <em style="font-style:italic;color:var(--gold-light)">Melipona scutellaris</em> nos meliponários de Alagoas e Pernambuco.
+      </p>
+      <div class="mel-hero__rarity" data-reveal>
+        <span class="mel-hero__rarity-dot"></span>
+        Menos de 2 litros por colmeia ao ano
+      </div>
+    </div>
+  </section>
+
+  <!-- ── O QUE É ───────────────────────────────────────────────── -->
+  <section class="section mel-what">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem">
+        <div data-reveal>
+          <p class="eyebrow">A espécie</p>
+          <span class="divider"></span>
+          <h2>Melipona scutellaris</h2>
+          <p class="mel-what__lead mt-3">
+            A abelha uruçu é uma espécie nativa da Mata Atlântica, sem ferrão, produtora de um mel com acidez, aroma e propriedades <em>únicas no mundo</em>.
+          </p>
+          <p class="text-mid mt-3" style="font-size:0.95rem;line-height:1.8">
+            Cada colmeia produz menos de 2 litros por ano — o que torna o mel de uruçu genuinamente raro. Sua composição é diferente do mel convencional: maior teor de água livre, pH mais ácido e concentração excepcional de compostos bioativos.
+          </p>
+          <p class="text-mid mt-2" style="font-size:0.95rem;line-height:1.8">
+            Nos nossos meliponários, cada colmeia é monitorada individualmente — da temperatura à produção. Só assim é possível garantir a qualidade de um mel tão delicado.
+          </p>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <div style="border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:3/4">
+            <img src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_41.jpeg"
+                 alt="Interior de colmeia uruçu com potes de mel e própolis vermelha"
+                 style="width:100%;height:100%;object-fit:cover" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROPRIEDADES ──────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header section-header--center" data-reveal>
+        <p class="eyebrow">Ciência & Natureza</p>
+        <span class="divider divider--center"></span>
+        <h2>Propriedades documentadas</h2>
+        <p class="text-mid mt-2" style="max-width:480px;margin-left:auto;margin-right:auto;font-size:0.95rem">
+          Pesquisas publicadas nas últimas duas décadas confirmam o que os povos nativos já sabiam.
+        </p>
+      </div>
+
+      <div class="grid-3" style="gap:1.5rem">
+        <div class="prop-card" data-reveal>
+          <div class="prop-card__icon">⚗️</div>
+          <h3 class="prop-card__title">Antioxidante</h3>
+          <p class="prop-card__desc">
+            Flavonoides e compostos fenólicos em concentração superior ao mel convencional. Combate o estresse oxidativo e o envelhecimento celular.
+          </p>
+        </div>
+        <div class="prop-card" data-reveal data-reveal-delay="1">
+          <div class="prop-card__icon">🛡️</div>
+          <h3 class="prop-card__title">Antimicrobiano</h3>
+          <p class="prop-card__desc">
+            Atividade comprovada contra bactérias e fungos, validada em estudos científicos. Ação mais pronunciada que o mel de Apis mellifera.
+          </p>
+        </div>
+        <div class="prop-card" data-reveal data-reveal-delay="2">
+          <div class="prop-card__icon">💧</div>
+          <h3 class="prop-card__title">Umectante</h3>
+          <p class="prop-card__desc">
+            Retenção de umidade natural excepcional — base ativa dos cosméticos Bee Forest Luxe. Hidratação de dentro para fora.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── USOS ──────────────────────────────────────────────────── -->
+  <section class="section usos-section">
+    <div class="container">
+      <div class="grid-2" style="gap:5rem;align-items:start">
+        <div data-reveal>
+          <p class="eyebrow" style="color:var(--gold)">Versatilidade</p>
+          <span class="divider"></span>
+          <h2 style="color:var(--cream)">Três formas de usar</h2>
+          <p style="color:rgba(245,240,232,0.55);margin-top:1rem;font-size:0.9rem;line-height:1.75;max-width:360px">
+            Um único ingrediente, múltiplas aplicações. O mel de uruçu adapta-se ao seu estilo de vida.
+          </p>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <div class="uso-item">
+            <span class="uso-item__icon">🌅</span>
+            <div>
+              <p class="uso-item__label">Suplementação</p>
+              <h4 class="uso-item__title">1 colher de chá em jejum</h4>
+              <p class="uso-item__desc">
+                Puro ou diluído em água morna. A forma mais direta de absorver os compostos bioativos do mel de uruçu.
+              </p>
+            </div>
+          </div>
+          <div class="uso-item">
+            <span class="uso-item__icon">✨</span>
+            <div>
+              <p class="uso-item__label">Skincare</p>
+              <h4 class="uso-item__title">Ingrediente ativo nos cosméticos</h4>
+              <p class="uso-item__desc">
+                Presente no Golden Drops Sérum e no Glow Defense FPS 50. Hidratação profunda com ação antioxidante na pele.
+              </p>
+            </div>
+          </div>
+          <div class="uso-item">
+            <span class="uso-item__icon">🍽️</span>
+            <div>
+              <p class="uso-item__label">Culinária</p>
+              <h4 class="uso-item__title">Substituto natural do açúcar</h4>
+              <p class="uso-item__desc">
+                Sem aditivos, sem conservantes. O mel de uruçu tem sabor mais ácido e aromático que o mel convencional — ideal para receitas gourmet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ORIGEM ────────────────────────────────────────────────── -->
+  <section class="section origem-section">
+    <div class="container">
+      <div class="grid-2" style="gap:4rem">
+        <div class="origem-img-wrap" data-reveal>
+          <img
+            src="assets/images/WhatsApp_Image_2026-04-09_at_15_53_03.jpeg"
+            alt="Favo da colmeia uruçu com células de cria"
+            loading="lazy"
+          />
+          <span class="origem-img-badge">Mata Atlântica · Nordeste</span>
+        </div>
+        <div data-reveal data-reveal-delay="1">
+          <p class="eyebrow">Origem rastreada</p>
+          <span class="divider"></span>
+          <h2>Do meliponário à embalagem</h2>
+          <p class="text-mid mt-3" style="line-height:1.8;font-size:0.95rem">
+            Nossos meliponários ficam dentro de áreas de Mata Atlântica preservada, próximos a reservas naturais do Nordeste. Cada lote é rastreável do meliponário à embalagem.
+          </p>
+
+          <div class="locais-list mt-4">
+            <div class="locais-list__item">
+              <span class="locais-list__dot"></span>
+              Camaragibe, Pernambuco
+            </div>
+            <div class="locais-list__item">
+              <span class="locais-list__dot"></span>
+              Murici, Alagoas
+            </div>
+            <div class="locais-list__item">
+              <span class="locais-list__dot"></span>
+              Viçosa, Alagoas
+            </div>
+            <div class="locais-list__item">
+              <span class="locais-list__dot"></span>
+              Marechal Deodoro — próximo à Lagoa Manguaba, Alagoas
+            </div>
+          </div>
+
+          <p class="text-mid mt-3" style="font-size:0.875rem;line-height:1.75">
+            Todas as localidades dentro ou na bordadura de fragmentos de Mata Atlântica — o habitat natural da Melipona scutellaris.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────── -->
+  <section class="section mel-cta">
+    <div class="container">
+      <div class="mel-cta__inner" data-reveal>
+        <p class="eyebrow">Próximo passo</p>
+        <span class="divider divider--center"></span>
+        <h2 class="mel-cta__title">Qual é o seu produto ideal?</h2>
+        <p class="mel-cta__sub">
+          Descubra se o mel de uruçu faz mais sentido para a sua saúde, sua pele ou sua mesa.
+        </p>
+        <div class="mel-cta__btns">
+          <a href="quiz.html" class="btn btn-gold">Descobrir minha dosagem</a>
+          <a href="loja.html" class="btn btn-dark">Comprar mel de uruçu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo_fundo_preto_e_figura_dourada.png" alt="Bee Forest"
+               onerror="this.style.display='none'">
+          <p class="footer__tagline">Tecnologia e natureza.<br>Do meliponário ao luxo.</p>
+          <p class="footer__desc">Bee Forest une meliponicultura de precisão e cosméticos naturais, com origem 100% nordestina.</p>
+        </div>
+        <div>
+          <p class="footer__col-title">Mel</p>
+          <ul class="footer__links">
+            <li><a href="mel.html">Mel de Uruçu</a></li>
+            <li><a href="quiz.html">Descobrir dosagem</a></li>
+            <li><a href="loja.html">Comprar</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Empresa</p>
+          <ul class="footer__links">
+            <li><a href="luxe.html">Bee Forest Luxe</a></li>
+            <li><a href="sobre.html">Sobre nós</a></li>
+            <li><a href="contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__col-title">Loja</p>
+          <ul class="footer__links">
+            <li><a href="loja.html">Todos os produtos</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2026 Bee Forest. Todos os direitos reservados.</p>
+        <div class="footer__social">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>

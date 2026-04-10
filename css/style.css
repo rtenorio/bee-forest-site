@@ -216,7 +216,13 @@ p  { font-size: 1rem; line-height: 1.75; }
   gap: 0.75rem;
   flex-shrink: 0;
 }
-.nav__logo img { height: 36px; width: auto; }
+.nav__logo img {
+  height: 44px;
+  width: auto;
+  background: none;
+  border: none;
+  display: block;
+}
 .nav__logo-text {
   font-family: var(--font-serif);
   font-size: 1.2rem;
