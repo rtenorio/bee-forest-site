@@ -14,319 +14,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
-
-  <style>
-    /* ── Quiz wrapper ── */
-    .quiz-page {
-      background: var(--cream);
-      min-height: 100vh;
-      padding-top: var(--nav-h);
-    }
-
-    .quiz-section {
-      padding: 4rem 0 6rem;
-    }
-
-    .quiz-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    .quiz-header h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 0.75rem;
-    }
-    .quiz-header p {
-      color: var(--text-mid);
-      max-width: 440px;
-      margin: 0 auto;
-      font-size: 0.95rem;
-    }
-
-    /* ── Progress ── */
-    .quiz-progress {
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-    }
-    .quiz-progress__track {
-      height: 3px;
-      background: var(--cream-dark);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .quiz-progress__fill {
-      height: 100%;
-      background: var(--gold);
-      border-radius: 99px;
-      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .quiz-progress__label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      text-align: right;
-      margin-top: 0.5rem;
-    }
-
-    /* ── Step card ── */
-    .quiz-card {
-      max-width: 560px;
-      margin: 0 auto;
-      background: var(--white);
-      border: 1px solid var(--cream-dark);
-      border-radius: 16px;
-      padding: 2.5rem;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.06);
-    }
-
-    .quiz-step { display: none; }
-    .quiz-step.is-active { display: block; }
-
-    .quiz-question {
-      font-family: var(--font-serif);
-      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
-      font-weight: 400;
-      color: var(--text-dark);
-      line-height: 1.35;
-      margin-bottom: 0.625rem;
-    }
-    .quiz-hint {
-      font-size: 0.825rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-    }
-
-    /* ── Option buttons ── */
-    .quiz-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .quiz-option {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: var(--cream);
-      border: 1.5px solid var(--cream-dark);
-      border-radius: var(--radius-lg);
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-      text-align: left;
-      width: 100%;
-      font-family: var(--font-sans);
-    }
-    .quiz-option:hover {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.05);
-      transform: translateX(3px);
-    }
-    .quiz-option.is-selected {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.1);
-    }
-    .quiz-option__icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-      width: 2rem;
-      text-align: center;
-    }
-    .quiz-option__text { flex: 1; }
-    .quiz-option__label {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-dark);
-      display: block;
-      margin-bottom: 0.15rem;
-    }
-    .quiz-option__sub {
-      font-size: 0.775rem;
-      color: var(--text-light);
-    }
-    .quiz-option__check {
-      width: 20px; height: 20px;
-      border: 1.5px solid var(--cream-dark);
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      transition: background 0.2s, border-color 0.2s;
-      color: transparent;
-    }
-    .quiz-option.is-selected .quiz-option__check {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
-    }
-
-    /* ── Nav buttons ── */
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    .quiz-back {
-      background: none;
-      border: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      cursor: pointer;
-      padding: 0;
-      transition: color var(--transition);
-    }
-    .quiz-back:hover { color: var(--text-mid); }
-    .quiz-back:disabled { opacity: 0; pointer-events: none; }
-
-    .quiz-next {
-      min-width: 140px;
-    }
-
-    /* ── Result ── */
-    .quiz-result { display: none; }
-    .quiz-result.is-active { display: block; }
-
-    .result-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.3);
-      color: var(--gold-dark);
-      padding: 0.4rem 0.875rem;
-      border-radius: 99px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-
-    .result-title {
-      font-family: var(--font-serif);
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      margin-bottom: 0.75rem;
-    }
-
-    .result-desc {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      line-height: 1.75;
-      margin-bottom: 2rem;
-    }
-
-    .result-product {
-      background: var(--cream);
-      border: 1px solid var(--cream-dark);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-      display: flex;
-      gap: 1.25rem;
-      align-items: center;
-      margin-bottom: 1.75rem;
-    }
-    .result-product__img {
-      width: 80px;
-      height: 80px;
-      border-radius: var(--radius);
-      object-fit: cover;
-      background: var(--cream-dark);
-      flex-shrink: 0;
-    }
-    .result-product__img-placeholder {
-      width: 80px;
-      height: 80px;
-      border-radius: var(--radius);
-      background: var(--cream-dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-    .result-product__label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.3rem;
-    }
-    .result-product__name {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      margin-bottom: 0.25rem;
-    }
-    .result-product__detail {
-      font-size: 0.8rem;
-      color: var(--text-mid);
-    }
-    .result-product__price {
-      font-family: var(--font-serif);
-      font-size: 1.3rem;
-      color: var(--gold-dark);
-      margin-top: 0.25rem;
-    }
-
-    .result-dosage {
-      background: rgba(201,168,76,0.08);
-      border-left: 3px solid var(--gold);
-      padding: 1rem 1.25rem;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      margin-bottom: 1.75rem;
-    }
-    .result-dosage__label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-dark);
-      margin-bottom: 0.4rem;
-    }
-    .result-dosage__text {
-      font-size: 0.875rem;
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    .result-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .result-restart {
-      font-size: 0.78rem;
-      text-align: center;
-      color: var(--text-light);
-      margin-top: 1.5rem;
-    }
-    .result-restart button {
-      background: none;
-      border: none;
-      color: var(--gold-dark);
-      cursor: pointer;
-      font-size: 0.78rem;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-
-    /* ── Animation ── */
-    .quiz-step.is-entering {
-      animation: slideUp 0.3s ease forwards;
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
 <body>
 
@@ -369,122 +56,203 @@
   </div>
 
   <!-- ── QUIZ ──────────────────────────────────────────────────── -->
-  <div class="quiz-page">
-    <section class="quiz-section">
-      <div class="container">
+  <section style="background:#0A0A0A; padding: 0;">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+.qz{font-family:'Inter',sans-serif;background:#0A0A0A;min-height:600px;padding:48px 32px;color:#fff;max-width:800px;margin:0 auto}
+.qz .serif{font-family:'Cormorant Garamond',serif}
+.qz .gold{color:#C9A84C}
+.qz .step{display:none}.qz .step.active{display:block}
+.qz .q-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:16px;opacity:0.8}
+.qz .q-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.3;margin-bottom:8px;color:#fff}
+.qz .q-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:36px;line-height:1.7}
+.qz .progress{display:flex;gap:6px;margin-bottom:40px}
+.qz .progress-dot{height:2px;flex:1;background:rgba(255,255,255,0.12);transition:background 0.3s}
+.qz .progress-dot.done{background:#C9A84C}
+.qz .options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qz .option{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.12);padding:18px 20px;cursor:pointer;transition:all 0.2s;text-align:left}
+.qz .option:hover{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.06)}
+.qz .option.selected{border-color:#C9A84C;background:rgba(201,168,76,0.1)}
+.qz .option-label{font-size:13px;font-weight:500;color:#fff;margin-bottom:4px}
+.qz .option-desc{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5}
+.qz .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+.qz .btn-next{background:#C9A84C;color:#0A0A0A;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:14px 32px;border:none;cursor:pointer;font-weight:500;opacity:0.3;transition:opacity 0.2s}
+.qz .btn-next.ready{opacity:1}
+.qz .btn-back{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer}
+.qz .result-card{background:rgba(201,168,76,0.06);border:0.5px solid rgba(201,168,76,0.3);padding:32px;margin-bottom:16px}
+.qz .result-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:10px}
+.qz .result-name{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;margin-bottom:8px}
+.qz .result-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:20px}
+.qz .result-why{font-size:11px;color:rgba(201,168,76,0.7);line-height:1.7;padding-top:16px;border-top:0.5px solid rgba(201,168,76,0.2)}
+.qz .dosage-box{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);padding:20px;margin-top:12px}
+.qz .dosage-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px}
+.qz .dosage-value{font-family:'Cormorant Garamond',serif;font-size:20px;color:#C9A84C}
+.qz .dosage-note{font-size:11px;color:rgba(255,255,255,0.3);margin-top:4px;line-height:1.6}
+.qz .btn-shop{display:inline-block;background:#C9A84C;color:#0A0A0A;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:14px 32px;border:none;cursor:pointer;font-weight:500;margin-top:24px;text-decoration:none}
+.qz .btn-redo{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer;margin-top:16px;display:block}
+.qz .single-col{grid-template-columns:1fr}
+</style>
 
-        <div class="quiz-header">
-          <p class="eyebrow">Bee Forest · Quiz</p>
-          <h1>Qual produto é para você?</h1>
-          <p>3 perguntas. Resultado imediato. Sem e-mail obrigatório.</p>
-        </div>
-
-        <!-- Progress -->
-        <div class="quiz-progress" id="quiz-progress">
-          <div class="quiz-progress__track">
-            <div class="quiz-progress__fill" id="progress-fill" style="width:33%"></div>
-          </div>
-          <p class="quiz-progress__label" id="progress-label">Pergunta 1 de 3</p>
-        </div>
-
-        <!-- Card -->
-        <div class="quiz-card" id="quiz-card">
-
-          <!-- ── Pergunta 1 ── -->
-          <div class="quiz-step is-active" id="step-1" data-step="1">
-            <h2 class="quiz-question">O que mais te interessa no mel de uruçu?</h2>
-            <p class="quiz-hint">Escolha a opção que mais combina com você agora.</p>
-            <div class="quiz-options">
-              <button class="quiz-option" data-value="saude">
-                <span class="quiz-option__icon">💪</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Saúde & Imunidade</span>
-                  <span class="quiz-option__sub">Quero usar como suplemento diário</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-              <button class="quiz-option" data-value="pele">
-                <span class="quiz-option__icon">✨</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Beleza & Skincare</span>
-                  <span class="quiz-option__sub">Quero uma pele mais hidratada e saudável</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-              <button class="quiz-option" data-value="culinaria">
-                <span class="quiz-option__icon">🍽️</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Culinária & Sabor</span>
-                  <span class="quiz-option__sub">Quero substituir o açúcar ou adoçar receitas</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-            </div>
-            <div class="quiz-nav">
-              <button class="quiz-back" disabled>← Voltar</button>
-              <button class="btn btn-gold quiz-next" id="next-1" disabled>Próxima →</button>
-            </div>
-          </div>
-
-          <!-- ── Pergunta 2 ── -->
-          <div class="quiz-step" id="step-2" data-step="2">
-            <h2 class="quiz-question" id="q2-text">Como é a sua rotina hoje?</h2>
-            <p class="quiz-hint">Isso nos ajuda a indicar a forma de uso certa.</p>
-            <div class="quiz-options" id="q2-options">
-              <!-- Preenchido dinamicamente por JS -->
-            </div>
-            <div class="quiz-nav">
-              <button class="quiz-back" data-target="1">← Voltar</button>
-              <button class="btn btn-gold quiz-next" id="next-2" disabled>Próxima →</button>
-            </div>
-          </div>
-
-          <!-- ── Pergunta 3 ── -->
-          <div class="quiz-step" id="step-3" data-step="3">
-            <h2 class="quiz-question">Qual é o seu estilo de consumo?</h2>
-            <p class="quiz-hint">Seja honesto — não tem resposta errada.</p>
-            <div class="quiz-options">
-              <button class="quiz-option" data-value="minimalista">
-                <span class="quiz-option__icon">🎯</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Minimalista</span>
-                  <span class="quiz-option__sub">Menos produtos, mais eficiência. Consistência acima de tudo.</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-              <button class="quiz-option" data-value="rotina">
-                <span class="quiz-option__icon">📅</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Rotina diária</span>
-                  <span class="quiz-option__sub">Gosto de rituais. Cada produto tem seu momento.</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-              <button class="quiz-option" data-value="premium">
-                <span class="quiz-option__icon">🏆</span>
-                <span class="quiz-option__text">
-                  <span class="quiz-option__label">Premium</span>
-                  <span class="quiz-option__sub">Quero o melhor do melhor. Qualidade é prioridade.</span>
-                </span>
-                <span class="quiz-option__check">✓</span>
-              </button>
-            </div>
-            <div class="quiz-nav">
-              <button class="quiz-back" data-target="2">← Voltar</button>
-              <button class="btn btn-gold quiz-next" id="next-3" disabled>Ver meu resultado →</button>
-            </div>
-          </div>
-
-          <!-- ── Resultado ── -->
-          <div class="quiz-result" id="quiz-result">
-            <!-- Preenchido por JS -->
-          </div>
-
-        </div><!-- /quiz-card -->
-
-      </div>
-    </section>
+<div class="qz">
+  <div class="progress" id="progress">
+    <div class="progress-dot done" id="pd0"></div>
+    <div class="progress-dot" id="pd1"></div>
+    <div class="progress-dot" id="pd2"></div>
+    <div class="progress-dot" id="pd3"></div>
+    <div class="progress-dot" id="pd4"></div>
   </div>
+
+  <div class="step active" id="s0">
+    <div class="q-eyebrow">Bee Forest · Descobrir meu produto</div>
+    <h2 class="q-title">O que você busca <em class="gold">agora?</em></h2>
+    <p class="q-sub">Vamos encontrar o produto certo para você em menos de 2 minutos.</p>
+    <div class="options single-col">
+      <div class="option" data-step="0" data-val="skin"><div class="option-label">Cuidar da minha pele</div><div class="option-desc">Hidratação, antioxidantes, proteção solar, anti-aging</div></div>
+      <div class="option" data-step="0" data-val="wellness"><div class="option-label">Melhorar minha saúde e energia</div><div class="option-desc">Suplementação funcional com mel e própolis vermelha</div></div>
+      <div class="option" data-step="0" data-val="lips"><div class="option-label">Cuidar dos meus lábios</div><div class="option-desc">Hidratação labial, cor, nutrição com mel de uruçu</div></div>
+      <div class="option" data-step="0" data-val="hair"><div class="option-label">Tratar meu cabelo</div><div class="option-desc">Nutrição, brilho, controle do frizz</div></div>
+    </div>
+    <div class="nav-row"><span></span><button class="btn-next" id="next0" onclick="qzNext(0)">Continuar →</button></div>
+  </div>
+
+  <div class="step" id="s1">
+    <div class="q-eyebrow">Pele</div>
+    <h2 class="q-title">Como você descreveria <em class="gold">sua pele?</em></h2>
+    <p class="q-sub">Seja honesto — isso define o produto ideal.</p>
+    <div class="options">
+      <div class="option" data-step="1" data-val="dry"><div class="option-label">Ressecada</div><div class="option-desc">Sente aperto, descamação, falta de viço</div></div>
+      <div class="option" data-step="1" data-val="oily"><div class="option-label">Oleosa</div><div class="option-desc">Brilho excessivo, poros dilatados, acne</div></div>
+      <div class="option" data-step="1" data-val="mixed"><div class="option-label">Mista</div><div class="option-desc">Oleosa na zona T, seca nas bochechas</div></div>
+      <div class="option" data-step="1" data-val="sensitive"><div class="option-label">Sensível</div><div class="option-desc">Reage facilmente, vermelhidão, irritação</div></div>
+    </div>
+    <div class="nav-row"><button class="btn-back" onclick="qzPrev(1)">← Voltar</button><button class="btn-next" id="next1" onclick="qzNext(1)">Continuar →</button></div>
+  </div>
+
+  <div class="step" id="s2">
+    <div class="q-eyebrow">Exposição</div>
+    <h2 class="q-title">Você se expõe ao <em class="gold">sol com frequência?</em></h2>
+    <p class="q-sub">Nordeste, atividades ao ar livre, praia — tudo conta.</p>
+    <div class="options single-col">
+      <div class="option" data-step="2" data-val="high"><div class="option-label">Sim, diariamente</div><div class="option-desc">Trabalho externo, esporte, praia frequente</div></div>
+      <div class="option" data-step="2" data-val="medium"><div class="option-label">Às vezes</div><div class="option-desc">Fins de semana, deslocamentos curtos</div></div>
+      <div class="option" data-step="2" data-val="low"><div class="option-label">Pouco</div><div class="option-desc">Trabalho interno, rotina urbana</div></div>
+    </div>
+    <div class="nav-row"><button class="btn-back" onclick="qzPrev(2)">← Voltar</button><button class="btn-next" id="next2" onclick="qzNext(2)">Continuar →</button></div>
+  </div>
+
+  <div class="step" id="s3">
+    <div class="q-eyebrow">Bem-estar</div>
+    <h2 class="q-title">Qual é seu principal <em class="gold">objetivo de saúde?</em></h2>
+    <p class="q-sub">Vamos calibrar a dosagem certa para você.</p>
+    <div class="options">
+      <div class="option" data-step="3" data-val="immunity"><div class="option-label">Imunidade</div><div class="option-desc">Resistir melhor a gripes, infecções e inflamações</div></div>
+      <div class="option" data-step="3" data-val="energy"><div class="option-label">Energia e foco</div><div class="option-desc">Rendimento no trabalho, disposição e clareza mental</div></div>
+      <div class="option" data-step="3" data-val="gut"><div class="option-label">Saúde intestinal</div><div class="option-desc">Digestão, microbioma, bem-estar gástrico</div></div>
+      <div class="option" data-step="3" data-val="antioxidant"><div class="option-label">Antienvelhecimento</div><div class="option-desc">Combater radicais livres, longevidade celular</div></div>
+    </div>
+    <div class="nav-row"><button class="btn-back" onclick="qzPrev(3)">← Voltar</button><button class="btn-next" id="next3" onclick="qzNext(3)">Continuar →</button></div>
+  </div>
+
+  <div class="step" id="s4">
+    <div class="q-eyebrow">Rotina</div>
+    <h2 class="q-title">Como é sua <em class="gold">rotina de saúde?</em></h2>
+    <p class="q-sub">Para recomendar a dosagem mais adequada.</p>
+    <div class="options single-col">
+      <div class="option" data-step="4" data-val="active"><div class="option-label">Muito ativa — treino e cuido da alimentação</div><div class="option-desc">Exercícios regulares, dieta consciente</div></div>
+      <div class="option" data-step="4" data-val="moderate"><div class="option-label">Moderada — me cuido quando posso</div><div class="option-desc">Alguma atividade física, alimentação razoável</div></div>
+      <div class="option" data-step="4" data-val="sedentary"><div class="option-label">Sedentária — quero começar a mudar</div><div class="option-desc">Pouco exercício, rotina agitada, alimentação irregular</div></div>
+    </div>
+    <div class="nav-row"><button class="btn-back" onclick="qzPrev(4)">← Voltar</button><button class="btn-next" id="next4" onclick="qzShowResult()">Ver meu resultado →</button></div>
+  </div>
+
+  <div class="step" id="result">
+    <div class="q-eyebrow">Seu protocolo Bee Forest</div>
+    <div id="result-content"></div>
+    <button class="btn-redo" onclick="qzRestart()">Refazer o quiz</button>
+  </div>
+</div>
+
+<script>
+const qzA={};
+function qzFlow(){
+  if(!qzA[0]) return [0];
+  if(qzA[0]==='skin') return [0,1,2,'result'];
+  if(qzA[0]==='wellness') return [0,3,4,'result'];
+  return [0,'result'];
+}
+document.querySelectorAll('.qz .option').forEach(opt=>{
+  opt.addEventListener('click',function(){
+    const step=parseInt(this.dataset.step);
+    document.querySelectorAll(`.qz .option[data-step="${step}"]`).forEach(o=>o.classList.remove('selected'));
+    this.classList.add('selected');
+    qzA[step]=this.dataset.val;
+    const btn=document.getElementById('next'+step);
+    if(btn) btn.classList.add('ready');
+  });
+});
+function qzNext(current){
+  if(!qzA[current]) return;
+  const flow=qzFlow();
+  const pos=flow.indexOf(current);
+  const next=flow[pos+1];
+  if(next==='result'){qzShowResult();return;}
+  document.getElementById('s'+current).classList.remove('active');
+  document.getElementById('s'+next).classList.add('active');
+  qzUpdateProgress(next);
+}
+function qzPrev(current){
+  const flow=qzFlow();
+  const pos=flow.indexOf(current);
+  const prev=flow[pos-1];
+  document.getElementById('s'+current).classList.remove('active');
+  document.getElementById('s'+prev).classList.add('active');
+  qzUpdateProgress(prev);
+}
+function qzUpdateProgress(step){
+  const flow=qzFlow();
+  const pos=flow.indexOf(step);
+  for(let i=0;i<5;i++){const dot=document.getElementById('pd'+i);if(dot)dot.classList.toggle('done',i<=pos);}
+}
+function qzShowResult(){
+  document.querySelectorAll('.qz .step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('result').classList.add('active');
+  for(let i=0;i<5;i++)document.getElementById('pd'+i).classList.add('done');
+  qzRenderResult();
+}
+function qzCard(tag,name,desc,why){
+  return `<div class="result-card"><div class="result-tag">${tag}</div><div class="result-name serif">${name}</div><div class="result-desc">${desc}</div><div class="result-why">${why}</div></div>`;
+}
+function qzRenderResult(){
+  const intent=qzA[0],skin=qzA[1],sun=qzA[2],goal=qzA[3],routine=qzA[4];
+  let html='';
+  if(intent==='skin'){
+    const needsSPF=sun==='high'||sun==='medium';
+    const needsHydration=skin==='dry'||skin==='sensitive';
+    if(needsHydration) html+=qzCard('Cosmético principal','Golden Drops Sérum','Sérum antioxidante com mel de uruçu, própolis vermelha e CoQ10. Hidratação profunda e ação reparadora — ideal para pele ressecada ou sensível.','A própolis vermelha tem ação anti-inflamatória e cicatrizante comprovada. O mel de uruçu é umectante natural com atividade antimicrobiana.');
+    if(needsSPF) html+=qzCard('Proteção diária','Glow Defense FPS 50','Protetor solar com mel de uruçu e acabamento luminoso. Sem resíduo branco. Ideal para quem vive em clima quente e se expõe ao sol com frequência.','Exposição solar diária no Nordeste exige FPS 50 todos os dias. O mel de uruçu na formulação garante hidratação contínua durante a proteção.');
+    if(!needsHydration&&!needsSPF) html+=qzCard('Cosmético recomendado','Golden Drops Sérum','Para pele mista ou oleosa, o sérum com própolis vermelha atua como antioxidante sem engordurar. Uso noturno ideal.','A própolis vermelha tem propriedades antibacterianas que auxiliam no controle da oleosidade sem ressecar.');
+  }
+  if(intent==='wellness'){
+    const mel=goal==='energy'?'1 colher de chá em jejum (manhã)':goal==='immunity'?'1 colher de chá + própolis vermelha (manhã e noite)':goal==='gut'?'1 colher de chá antes das refeições principais':'1 colher de chá ao acordar + à noite';
+    const prop=goal==='immunity'||goal==='antioxidant'?'5–10 gotas de extrato de própolis vermelha 2x ao dia':'5 gotas de extrato de própolis vermelha 1x ao dia';
+    const intensify=routine==='sedentary'?'Comece com metade da dosagem nas primeiras 2 semanas para adaptar o organismo.':routine==='active'?'Para rotina ativa, o mel de uruçu antes do treino potencializa energia sem pico glicêmico.':'Diluir em água ou suco. Manter regularidade para melhores resultados.';
+    html+=`<div class="result-card"><div class="result-tag">Protocolo wellness personalizado</div><div class="result-name serif">Mel de Uruçu + Própolis Vermelha</div><div class="result-desc">Com base no seu objetivo de ${goal==='energy'?'energia e foco':goal==='immunity'?'imunidade':goal==='gut'?'saúde intestinal':'antienvelhecimento'}, montamos a combinação ideal para você.</div><div class="dosage-box"><div class="dosage-label">Mel de uruçu</div><div class="dosage-value">${mel}</div><div class="dosage-note">Puro ou diluído em água morna. Não aquecer acima de 40°C.</div></div><div class="dosage-box" style="margin-top:8px"><div class="dosage-label">Própolis vermelha</div><div class="dosage-value">${prop}</div><div class="dosage-note">${intensify}</div></div><div class="result-why">A própolis vermelha do Nordeste é considerada a mais potente do mundo em flavonoides. Combinada ao mel de uruçu da Melipona scutellaris, forma um protocolo funcional único — sem aditivos, direto do meliponário.</div></div>`;
+  }
+  if(intent==='lips') html+=qzCard('Hidratação labial','BeeKiss Lip Treatment','Tratamento labial com mel de uruçu e própolis vermelha. Cor natural, hidratação profunda, efeito volumizador suave.','O mel de uruçu é naturalmente umectante e tem atividade antimicrobiana. Ideal para lábios ressecados ou com fissuras. A própolis vermelha acelera a regeneração celular.');
+  if(intent==='hair') html+=qzCard('Tratamento capilar','Bee Leave In','Leave-in nutritivo com mel de uruçu e própolis vermelha. Controle do frizz, brilho intenso e hidratação prolongada sem resíduo.','O mel de uruçu retém umidade nos fios enquanto a própolis vermelha fortalece a cutícula. Resultado: cabelo nutrido, sem peso e com brilho natural.');
+  html+=`<a class="btn-shop" href="loja.html">Ver na loja →</a>`;
+  document.getElementById('result-content').innerHTML=html;
+}
+function qzRestart(){
+  Object.keys(qzA).forEach(k=>delete qzA[k]);
+  document.querySelectorAll('.qz .option').forEach(o=>o.classList.remove('selected'));
+  document.querySelectorAll('.qz .btn-next').forEach(b=>b.classList.remove('ready'));
+  document.querySelectorAll('.qz .step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s0').classList.add('active');
+  for(let i=0;i<5;i++){const dot=document.getElementById('pd'+i);if(dot)dot.classList.toggle('done',i===0);}
+}
+</script>
+</section>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────── -->
   <footer class="footer">
@@ -526,201 +294,5 @@
 
   <div class="toast-container"></div>
   <script src="js/main.js"></script>
-  <script>
-  (function () {
-    'use strict';
-
-    // ── Quiz data ──────────────────────────────────────────────
-    const Q2_VARIANTS = {
-      saude: {
-        question: 'Como é a sua rotina de saúde hoje?',
-        options: [
-          { value: 'iniciante', icon: '🌱', label: 'Estou começando', sub: 'Ainda não tenho uma rotina de suplementação' },
-          { value: 'regular',   icon: '🔄', label: 'Já tenho hábitos',  sub: 'Tomo suplementos ou chás regularmente' },
-          { value: 'avancado',  icon: '⚡', label: 'Muito ativo/a',     sub: 'Rotina intensa — treinos, alimentação controlada' },
-        ],
-      },
-      pele: {
-        question: 'Qual é sua maior preocupação com a pele?',
-        options: [
-          { value: 'hidratacao', icon: '💧', label: 'Ressecamento',    sub: 'Pele seca, opaca, que pede hidratação constante' },
-          { value: 'oleosidade', icon: '✨', label: 'Brilho e manchas', sub: 'Pele oleosa, poros abertos, tom irregular' },
-          { value: 'aging',      icon: '⏳', label: 'Sinais de tempo',  sub: 'Linhas finas, firmeza e luminosidade' },
-        ],
-      },
-      culinaria: {
-        question: 'Como você costuma adoçar seus alimentos?',
-        options: [
-          { value: 'acucar',    icon: '🍬', label: 'Açúcar refinado',   sub: 'Uso açúcar branco no dia a dia' },
-          { value: 'natural',   icon: '🌿', label: 'Adoçantes naturais', sub: 'Uso mel convencional, demerara ou stevia' },
-          { value: 'nenhum',    icon: '🎯', label: 'Evito adoçar',       sub: 'Prefiro o sabor natural dos alimentos' },
-        ],
-      },
-    };
-
-    const RESULTS = {
-      saude: {
-        badge:   '🍯 Suplementação',
-        title:   'Mel de Uruçu puro — 1 colher ao dia',
-        desc:    'Para você, o mel de uruçu funciona melhor como suplemento diário. A forma mais direta: 1 colher de chá (5ml) em jejum, puro ou dissolvido em água morna abaixo de 40°C. Nunca aqueça — o calor destrói as enzimas.',
-        dosage:  '1 colher de chá (5ml) pela manhã, em jejum.\nPode aumentar para 2 colheres após 2 semanas.',
-        product: { id: 'mel-urucu-100g', nome: 'Mel de Uruçu 100g', sub: 'Mel puro · origem rastreada', preco: 'R$ 79,00', imagem: 'assets/images/potes_de_mel.png', link: 'loja.html' },
-      },
-      pele: {
-        badge:   '✨ Skincare',
-        title:   'Golden Drops Sérum — sua pele precisa disso',
-        desc:    'Para o seu objetivo, o mel de uruçu funciona melhor como ativo cosmético. O Golden Drops Sérum concentra própolis vermelha, mel de uruçu e CoQ10 — o trio antioxidante que a sua pele precisa, formulado para máxima absorção.',
-        dosage:  '2 gotas pela manhã após a limpeza, antes do hidratante.\nÀ noite: 3 gotas no rosto limpo.',
-        product: { id: 'golden-drops', nome: 'Golden Drops Sérum', sub: 'Sérum antioxidante · 30ml', preco: 'R$ 189,00', imagem: 'assets/images/serum.jpg', link: 'loja.html' },
-      },
-      culinaria: {
-        badge:   '🍽️ Culinária',
-        title:   'Mel de Uruçu — o adoçante mais nobre',
-        desc:    'Para uso culinário, o mel de uruçu é substituto premium do açúcar refinado. Sabor mais ácido e complexo que o mel convencional. Regra de ouro: use 70% da quantidade de açúcar da receita — o mel de uruçu é mais doce e aromático.',
-        dosage:  'Proporção: 70g de mel substituem 100g de açúcar.\nEvite aquecimento acima de 40°C para preservar as propriedades.',
-        product: { id: 'mel-urucu-100g', nome: 'Mel de Uruçu 100g', sub: 'Mel puro · sem conservantes', preco: 'R$ 79,00', imagem: 'assets/images/potes_de_mel.png', link: 'loja.html' },
-      },
-    };
-
-    // ── State ──────────────────────────────────────────────────
-    const answers = { q1: null, q2: null, q3: null };
-    let currentStep = 1;
-
-    // ── DOM refs ───────────────────────────────────────────────
-    const progressFill  = document.getElementById('progress-fill');
-    const progressLabel = document.getElementById('progress-label');
-    const quizProgress  = document.getElementById('quiz-progress');
-    const quizResult    = document.getElementById('quiz-result');
-
-    // ── Step 1 ─────────────────────────────────────────────────
-    document.querySelectorAll('#step-1 .quiz-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#step-1 .quiz-option').forEach(b => b.classList.remove('is-selected'));
-        btn.classList.add('is-selected');
-        answers.q1 = btn.dataset.value;
-        document.getElementById('next-1').disabled = false;
-        populateQ2(answers.q1);
-      });
-    });
-
-    document.getElementById('next-1').addEventListener('click', () => goToStep(2));
-
-    // ── Step 2 (dynamic) ───────────────────────────────────────
-    function populateQ2(q1val) {
-      const variant = Q2_VARIANTS[q1val];
-      if (!variant) return;
-      document.getElementById('q2-text').textContent = variant.question;
-      const container = document.getElementById('q2-options');
-      container.innerHTML = variant.options.map(o => `
-        <button class="quiz-option" data-value="${o.value}">
-          <span class="quiz-option__icon">${o.icon}</span>
-          <span class="quiz-option__text">
-            <span class="quiz-option__label">${o.label}</span>
-            <span class="quiz-option__sub">${o.sub}</span>
-          </span>
-          <span class="quiz-option__check">✓</span>
-        </button>
-      `).join('');
-
-      container.querySelectorAll('.quiz-option').forEach(btn => {
-        btn.addEventListener('click', () => {
-          container.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('is-selected'));
-          btn.classList.add('is-selected');
-          answers.q2 = btn.dataset.value;
-          document.getElementById('next-2').disabled = false;
-        });
-      });
-    }
-
-    document.getElementById('next-2').addEventListener('click', () => goToStep(3));
-
-    // ── Step 3 ─────────────────────────────────────────────────
-    document.querySelectorAll('#step-3 .quiz-option').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#step-3 .quiz-option').forEach(b => b.classList.remove('is-selected'));
-        btn.classList.add('is-selected');
-        answers.q3 = btn.dataset.value;
-        document.getElementById('next-3').disabled = false;
-      });
-    });
-
-    document.getElementById('next-3').addEventListener('click', showResult);
-
-    // ── Back buttons ───────────────────────────────────────────
-    document.querySelectorAll('.quiz-back[data-target]').forEach(btn => {
-      btn.addEventListener('click', () => goToStep(parseInt(btn.dataset.target)));
-    });
-
-    // ── Navigation ─────────────────────────────────────────────
-    function goToStep(n) {
-      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('is-active', 'is-entering'));
-      const target = document.getElementById(`step-${n}`);
-      if (!target) return;
-      target.classList.add('is-active', 'is-entering');
-      currentStep = n;
-      const pct = Math.round((n / 3) * 100);
-      progressFill.style.width = pct + '%';
-      progressLabel.textContent = `Pergunta ${n} de 3`;
-    }
-
-    // ── Result ─────────────────────────────────────────────────
-    function showResult() {
-      const key    = answers.q1 || 'saude';
-      const result = RESULTS[key];
-
-      const imgHTML = result.product.imagem
-        ? `<img class="result-product__img" src="${result.product.imagem}" alt="${result.product.nome}" loading="lazy">`
-        : `<div class="result-product__img-placeholder">🍯</div>`;
-
-      quizResult.innerHTML = `
-        <span class="result-badge">${result.badge}</span>
-        <h2 class="result-title">${result.title}</h2>
-        <p class="result-desc">${result.desc}</p>
-
-        <div class="result-product">
-          ${imgHTML}
-          <div>
-            <p class="result-product__label">Produto recomendado</p>
-            <p class="result-product__name">${result.product.nome}</p>
-            <p class="result-product__detail">${result.product.sub}</p>
-            <p class="result-product__price">${result.product.preco}</p>
-          </div>
-        </div>
-
-        <div class="result-dosage">
-          <p class="result-dosage__label">Sua dosagem recomendada</p>
-          <p class="result-dosage__text">${result.dosage.replace(/\n/g, '<br>')}</p>
-        </div>
-
-        <div class="result-actions">
-          <a href="${result.product.link}" class="btn btn-gold">Comprar agora</a>
-          <a href="loja.html" class="btn btn-outline">Ver toda a loja</a>
-        </div>
-
-        <p class="result-restart">
-          Quer refazer o quiz?
-          <button onclick="restartQuiz()">Começar de novo</button>
-        </p>
-      `;
-
-      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('is-active'));
-      quizResult.classList.add('is-active');
-      progressFill.style.width = '100%';
-      progressLabel.textContent = 'Resultado ✓';
-    }
-
-    // ── Restart ────────────────────────────────────────────────
-    window.restartQuiz = function () {
-      answers.q1 = answers.q2 = answers.q3 = null;
-      quizResult.classList.remove('is-active');
-      document.getElementById('next-1').disabled = true;
-      document.getElementById('next-2').disabled = true;
-      document.getElementById('next-3').disabled = true;
-      document.querySelectorAll('.quiz-option').forEach(b => b.classList.remove('is-selected'));
-      goToStep(1);
-    };
-
-  })();
-  </script>
 </body>
 </html>
